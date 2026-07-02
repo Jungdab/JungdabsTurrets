@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#%#",
+    "#$#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "$": {
+      "item": "jdturrets:chip_base"
+    },
+    "%": {
+      "item": "minecraft:turtle_helmet"
+    }
+  },
+  "result": {
+    "id": "jdturrets:iron_health_chip"
+  }
+}

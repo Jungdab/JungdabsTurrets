@@ -1,0 +1,55 @@
+{
+  "entity.jdturrets.basic_turret": "터렛",
+  "entity.jdturrets.sniper_turret": "스나이퍼 터렛",
+  "entity.jdturrets.tank_turret": "탱크 터렛",
+
+  "item.jdturrets.turret_ammo": "터렛 탄환",
+  "item.jdturrets.wrench": "렌치",
+
+  "item.jdturrets.basic_turret_item": "터렛",
+  "item.jdturrets.sniper_turret_item": "스나이퍼 터렛",
+  "item.jdturrets.tank_turret_item": "탱크 터렛",
+
+  "item.jdturrets.chip_base": "칩",
+  "item.jdturrets.iron_damage_chip": "대미지 모듈 I",
+  "item.jdturrets.golden_damage_chip": "대미지 모듈 II",
+  "item.jdturrets.diamond_damage_chip": "대미지 모듈 III",
+  "item.jdturrets.netherite_damage_chip": "대미지 모듈 IV",
+
+  "item.jdturrets.iron_reload_chip": "빠른장전 모듈 I",
+  "item.jdturrets.golden_reload_chip": "빠른장전 모듈 II",
+  "item.jdturrets.diamond_reload_chip": "빠른장전 모듈 III",
+  "item.jdturrets.netherite_reload_chip": "빠른장전 모듈 IV",
+
+  "item.jdturrets.iron_health_chip": "최대체력 모듈 I",
+  "item.jdturrets.golden_health_chip": "최대체력 모듈 II",
+  "item.jdturrets.diamond_health_chip": "최대체력 모듈 III",
+  "item.jdturrets.netherite_health_chip": "최대체력 모듈 IV",
+
+  "item.jdturrets.iron_range_chip": "사거리 모듈 I",
+  "item.jdturrets.golden_range_chip": "사거리 모듈 II",
+  "item.jdturrets.diamond_range_chip": "사거리 모듈 III",
+  "item.jdturrets.netherite_range_chip": "사거리 모듈 IV",
+
+  "item.jdturrets.infinity_ammo_chip": "무한 탄환 모듈",
+  "item.jdturrets.self_repair_chip": "자가 수리 모듈",
+  "item.jdturrets.potato_chip": "감자칩",
+
+  "item.jdturrets.lore.damage": "+%d%% 대미지",
+  "item.jdturrets.lore.reload": "-%.1f%% 재장전",
+  "item.jdturrets.lore.health": "+%d%% 최대체력",
+  "item.jdturrets.lore.range": "사거리 +%d칸",
+
+  "item.jdturrets.lore.infinity_ammo": "§7터렛 사격시 §b총알이 소모되지 않습니다.",
+  "item.jdturrets.lore.self_repair": "§71초마다 체력을 §a1 §7회복합니다.",
+  "item.jdturrets.lore.potato": "그냥 감자칩이다.",
+
+  "gui.check_box.target_player": "타겟 플레이어",
+  "gui.check_box.target_friendly": "타겟 친화적 몹",
+  "gui.check_box.target_hostile": "타겟 적대적 몹",
+  "gui.check_box.target_turret": "타겟 터렛",
+
+  "attributes.jdturrets.attack_range": "사거리",
+  "itemGroup.jdturrets.mob_tab": "Jungdab's Turret",
+  "death.attack.turret_shoot": "%1$s이(가) 터렛에게 관통 당했습니다."
+}

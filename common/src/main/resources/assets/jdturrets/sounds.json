@@ -1,0 +1,22 @@
+{
+  "turret_shoot" : {
+    "sounds": [
+      "jdturrets:turret_shoot"
+    ]
+  },
+  "turret_place" : {
+    "sounds": [
+      "jdturrets:turret_place"
+    ]
+  },
+  "turret_destroy" : {
+    "sounds": [
+      "jdturrets:turret_destroy"
+    ]
+  },
+  "turret_hurt" : {
+    "sounds": [
+      "jdturrets:turret_hurt"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "^&^",
+    "%$%",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "$": {
+      "item": "jdturrets:chip_base"
+    },
+    "%": {
+      "item": "minecraft:redstone"
+    },
+    "^": {
+      "item": "minecraft:copper_ingot"
+    },
+    "&": {
+      "item": "minecraft:red_dye"
+    }
+  },
+  "result": {
+    "id": "jdturrets:sniper_turret_item"
+  }
+}

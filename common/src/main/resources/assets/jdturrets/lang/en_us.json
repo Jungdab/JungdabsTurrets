@@ -1,0 +1,55 @@
+{
+  "entity.jdturrets.basic_turret": "Basic Turret",
+  "entity.jdturrets.sniper_turret": "Sniper Turret",
+  "entity.jdturrets.tank_turret": "Tank Turret",
+
+  "item.jdturrets.turret_ammo": "Turret Ammo",
+  "item.jdturrets.wrench": "Wrench",
+
+  "item.jdturrets.basic_turret_item": "Basic Turret",
+  "item.jdturrets.sniper_turret_item": "Sniper Turret",
+  "item.jdturrets.tank_turret_item": "Tank Turret",
+
+  "item.jdturrets.chip_base": "Chip Base",
+  "item.jdturrets.iron_damage_chip": "Iron Damage Chip",
+  "item.jdturrets.golden_damage_chip": "Golden Damage Chip",
+  "item.jdturrets.diamond_damage_chip": "Diamond Damage Chip",
+  "item.jdturrets.netherite_damage_chip": "Netherite Damage Chip",
+
+  "item.jdturrets.iron_reload_chip": "Iron Reload Chip",
+  "item.jdturrets.golden_reload_chip": "Golden Reload Chip",
+  "item.jdturrets.diamond_reload_chip": "Diamond Reload Chip",
+  "item.jdturrets.netherite_reload_chip": "Netherite Reload Chip",
+
+  "item.jdturrets.iron_health_chip": "Iron Health Chip",
+  "item.jdturrets.golden_health_chip": "Golden Health Chip",
+  "item.jdturrets.diamond_health_chip": "Diamond Health Chip",
+  "item.jdturrets.netherite_health_chip": "Netherite Health Chip",
+
+  "item.jdturrets.iron_range_chip": "Iron Range Chip",
+  "item.jdturrets.golden_range_chip": "Golden Range Chip",
+  "item.jdturrets.diamond_range_chip": "Diamond Range Chip",
+  "item.jdturrets.netherite_range_chip": "Netherite Range Chip",
+
+  "item.jdturrets.infinity_ammo_chip": "Infinity Ammo Chip",
+  "item.jdturrets.self_repair_chip": "Auto-Repair Chip",
+  "item.jdturrets.potato_chip": "Potato Chip",
+
+  "item.jdturrets.lore.damage": "+%d%% Attack Damage",
+  "item.jdturrets.lore.reload": "-%.1f%% Reload Time",
+  "item.jdturrets.lore.health": "+%d%% Max Health",
+  "item.jdturrets.lore.range": "+%d Block Attack Range",
+
+  "item.jdturrets.lore.infinity_ammo": "§bPrevents ammo consumption §7when firing.",
+  "item.jdturrets.lore.self_repair": "§7Regenerates §a1 HP §7per second.",
+  "item.jdturrets.lore.potato": "It just potato chip",
+
+  "gui.check_box.target_player": "Target Player",
+  "gui.check_box.target_friendly": "Target Friendly Mob",
+  "gui.check_box.target_hostile": "Target Hostile Mob",
+  "gui.check_box.target_turret": "Target Turret",
+
+  "attributes.jdturrets.attack_range": "Attack Range",
+  "itemGroup.jdturrets.mob_tab": "Jungdab's Turret",
+  "death.attack.turret_shoot": "%1$s was ventilated by a turret."
+}
