@@ -2,11 +2,8 @@ package me.jungdab.jdturrets.entity.ai;
 
 import me.jungdab.jdturrets.entity.AbstractTurret;
 import me.jungdab.jdturrets.init.ModAttributes;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;

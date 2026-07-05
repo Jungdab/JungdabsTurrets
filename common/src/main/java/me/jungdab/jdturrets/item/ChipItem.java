@@ -1,31 +1,54 @@
 package me.jungdab.jdturrets.item;
 
-import me.jungdab.jdturrets.init.ModItems;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChipItem extends Item {
+
+    private final Map<Attribute, AttributeModifier> modifiers;
+    private final Component lore;
+
+    public ChipItem(Properties properties, Component lore, Map.Entry<Attribute, AttributeModifier>... modifierEntry) {
+        super(properties);
+
+        this.lore = lore;
+        this.modifiers = new HashMap<>();
+        for(Map.Entry<Attribute, AttributeModifier> entry : modifierEntry) {
+            this.modifiers.put(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public ChipItem(Properties properties, Component lore) {
+        super(properties);
+
+        this.lore = lore;
+        this.modifiers = new HashMap<>();
+    }
+
     public ChipItem(Properties properties) {
         super(properties);
+
+        this.lore = null;
+        this.modifiers = new HashMap<>();
+    }
+
+    public Map<Attribute, AttributeModifier> getModifiers() {
+        return this.modifiers;
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        ItemEnchantments enchantments = stack.get(DataComponents.ENCHANTMENTS);
-
-        if (enchantments != null && enchantments.getLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.INFINITY)) > 0) {
-            ItemStack newStack = new ItemStack(ModItems.INFINITY_AMMO_CHIP.get());
-            if (entity instanceof Player player) {
-                player.getInventory().setItem(slotId, newStack);
-            }
-        }
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced) {
+        super.appendHoverText(stack, level, tooltipComponents, isAdvanced);
+        if(this.lore != null) tooltipComponents.add(this.lore);
     }
 }

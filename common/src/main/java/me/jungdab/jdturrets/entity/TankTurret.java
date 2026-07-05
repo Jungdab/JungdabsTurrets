@@ -5,6 +5,7 @@ import me.jungdab.jdturrets.init.ModAttributes;
 import me.jungdab.jdturrets.init.ModDamageTypes;
 import me.jungdab.jdturrets.init.ModItems;
 import me.jungdab.jdturrets.util.ModMth;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundLevelParticlesPacket;
@@ -40,7 +41,7 @@ public class TankTurret extends AbstractTurret {
                 .add(Attributes.MAX_HEALTH, 100)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
                 .add(Attributes.MOVEMENT_SPEED, 0)
-                .add(ModAttributes.ATTACK_RANGE.get(), 8)
+                .add(ModAttributes.ATTACK_RANGE.get().value(), 8)
                 .add(Attributes.ATTACK_SPEED, 2)
                 .add(Attributes.ATTACK_DAMAGE, 10);
     }
@@ -54,7 +55,7 @@ public class TankTurret extends AbstractTurret {
         Vec3 pos = entity.position();
 
         Packet<?> particlePacket = new ClientboundLevelParticlesPacket(ParticleTypes.EXPLOSION, true, pos.x, pos.y, pos.z, 0, 0, 0, 0, 0);
-        Packet<?> soundPacket = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, pos.x, pos.y, pos.z, 3, 1, 0);
+        Packet<?> soundPacket = new ClientboundSoundPacket(Holder.direct(SoundEvents.GENERIC_EXPLODE), SoundSource.PLAYERS, pos.x, pos.y, pos.z, 3, 1, 0);
 
         for (ServerPlayer player : sl.players()) {
             player.connection.send(particlePacket);

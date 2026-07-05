@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.HorseInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
@@ -26,7 +27,7 @@ import java.util.function.Consumer;
 public class TurretContainerScreen extends AbstractContainerScreen<TurretContainerMenu> {
     private static final Map<Integer, AbstractTurret> DUMMY_TURRETS = new HashMap<>();
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/turret_container.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/gui/turret_container.png");
 
     private float xMouse;
     private float yMouse;
@@ -119,7 +120,9 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
 
         if(DUMMY_TURRETS.containsKey(type)) {
             AbstractTurret dummyTurret = DUMMY_TURRETS.get(type);
-            InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, leftPos+63, topPos+18, leftPos + 115, topPos + 70, 30, 0.2F, this.xMouse, this.yMouse, dummyTurret);
+
+
+            InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, leftPos+89, topPos+60, 30, (leftPos+89) - this.xMouse, (topPos+60) - this.yMouse, dummyTurret);
         } else {
             AbstractTurret dummyTurret = getDummyTurret(type, this.minecraft);
             if(dummyTurret != null) {

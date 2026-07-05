@@ -15,7 +15,7 @@ public class SniperTurretRenderer extends GeoEntityRenderer<SniperTurret> {
     }
 
     @Override
-    protected void applyRotations(SniperTurret animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
+    protected void applyRotations(SniperTurret animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
     }
 
     @Override

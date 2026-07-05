@@ -4,18 +4,18 @@ import me.jungdab.jdturrets.Constants;
 import me.jungdab.jdturrets.entity.AbstractTurret;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
 public class AbstractTurretModel<T extends AbstractTurret> extends DefaultedEntityGeoModel<T> {
     public AbstractTurretModel(String name) {
-        super(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+        super(new ResourceLocation(Constants.MOD_ID, name));
     }
 
     @Override
     public void setCustomAnimations(T turret, long instanceId, AnimationState<T> animationState) {
-        GeoBone head = getAnimationProcessor().getBone("head");
+        CoreGeoBone head = getAnimationProcessor().getBone("head");
 
         float partialTick = animationState.getPartialTick();
 

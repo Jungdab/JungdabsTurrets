@@ -28,7 +28,7 @@ public class SniperTurret extends AbstractTurret{
                 .add(Attributes.MAX_HEALTH, 20)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0)
                 .add(Attributes.MOVEMENT_SPEED, 0)
-                .add(ModAttributes.ATTACK_RANGE.get(), 30)
+                .add(ModAttributes.ATTACK_RANGE.get().value(), 30)
                 .add(Attributes.ATTACK_SPEED, 3)
                 .add(Attributes.ATTACK_DAMAGE, 20);
     }

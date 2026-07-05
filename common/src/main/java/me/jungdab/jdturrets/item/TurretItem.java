@@ -33,7 +33,7 @@ public class TurretItem<T extends AbstractTurret> extends Item {
 
         if(level.getBlockState(ctx.getClickedPos()).canBeReplaced() ||  !level.getBlockState(ctx.getClickedPos().above()).isAir()) return InteractionResult.PASS;
 
-        Vec3 spawnPos = ctx.getClickedPos().above().getBottomCenter();
+        Vec3 spawnPos = Vec3.atBottomCenterOf(ctx.getClickedPos().above());
         Player player = ctx.getPlayer();
 
         if(player == null) return InteractionResult.PASS;

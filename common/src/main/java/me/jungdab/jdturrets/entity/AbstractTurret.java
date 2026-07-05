@@ -1,6 +1,6 @@
 package me.jungdab.jdturrets.entity;
 
-import me.jungdab.jdturrets.Constants;
+import com.google.common.collect.Multimap;
 import me.jungdab.jdturrets.client.tracer.TraceRenderManager;
 import me.jungdab.jdturrets.entity.ai.TurretAttackGoal;
 import me.jungdab.jdturrets.entity.ai.TurretTargetGoal;
@@ -9,14 +9,13 @@ import me.jungdab.jdturrets.init.ModAttributes;
 import me.jungdab.jdturrets.init.ModDamageTypes;
 import me.jungdab.jdturrets.init.ModItems;
 import me.jungdab.jdturrets.init.ModSounds;
+import me.jungdab.jdturrets.item.ChipItem;
 import me.jungdab.jdturrets.util.ModMth;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -26,6 +25,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.*;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -37,20 +37,21 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 import java.util.UUID;
 
 public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventoryScreen, MenuProvider {
@@ -65,10 +66,10 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
     private static final RawAnimation DESTROY = RawAnimation.begin().thenPlay("destroy");
 
-    private static final ResourceLocation[] SLOT_MODIFIER_IDS = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_0"),
-            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_1"),
-            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_2")
+    private static final UUID[] SLOT_MODIFIER_IDS = new UUID[]{
+            UUID.fromString("59e16746-5b56-434a-80d4-2031165c4485"),
+            UUID.fromString("9d27a85e-f18b-4ad2-9039-79844c0b15d9"),
+            UUID.fromString("5f56fed4-22cd-4821-912c-acddeaebd9ff")
     };
 
     @Nullable
@@ -88,9 +89,9 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     public AbstractTurret(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
 
-        this.setTarget(TARGET_PLAYER, true);
-        this.setTarget(TARGET_FRIENDLY_MOB, true);
-        this.setTarget(TARGET_HOSTILE_MOB, true);
+        this.setTargetFilter(TARGET_PLAYER, true);
+        this.setTargetFilter(TARGET_FRIENDLY_MOB, true);
+        this.setTargetFilter(TARGET_HOSTILE_MOB, true);
 
         this.inventory = new SimpleContainer(7);
         this.turretData = new SimpleContainerData(9);
@@ -99,10 +100,10 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     private void updateUpgrades() {
         AttributeInstance attackDamageAttr = this.getAttribute(Attributes.ATTACK_DAMAGE);
         AttributeInstance attackSpeedAttr = this.getAttribute(Attributes.ATTACK_SPEED);
-        AttributeInstance attackRangeAttr = this.getAttribute(ModAttributes.ATTACK_RANGE.get());
+        AttributeInstance attackRangeAttr = this.getAttribute(ModAttributes.ATTACK_RANGE.get().value());
         AttributeInstance maxHealthAttr = this.getAttribute(Attributes.MAX_HEALTH);
 
-        for(ResourceLocation id : SLOT_MODIFIER_IDS) {
+        for(UUID id : SLOT_MODIFIER_IDS) {
             if(attackDamageAttr != null) attackDamageAttr.removeModifier(id);
             if(attackSpeedAttr != null) attackSpeedAttr.removeModifier(id);
             if(attackRangeAttr != null) attackRangeAttr.removeModifier(id);
@@ -111,19 +112,20 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
 
         for (int slot = 0; slot <= 2; slot++) {
             ItemStack stack = this.inventory.getItem(slot);
-            if(stack.isEmpty()) continue;
+            if(stack.isEmpty() || !(stack.getItem() instanceof ChipItem chip)) continue;
 
-            ItemAttributeModifiers attributeModifiers = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
-            if(attributeModifiers == null) continue;
+            Map<Attribute, AttributeModifier> modifiers = chip.getModifiers();
 
-            ResourceLocation currentSlotId = SLOT_MODIFIER_IDS[slot];
+            UUID currentSlotId = SLOT_MODIFIER_IDS[slot];
 
-            attributeModifiers.modifiers().forEach(entry -> {
-                AttributeInstance attribute = this.getAttribute(entry.attribute());
-                if(attribute != null) {
-                    AttributeModifier original = entry.modifier();
-                    attribute.addOrUpdateTransientModifier(new AttributeModifier(currentSlotId, original.amount(), original.operation()));
+            modifiers.forEach((attribute, modifier) -> {
+                if(attribute!=null && modifier!=null) {
+                    AttributeInstance attributeInstance = this.getAttribute(attribute);
+                    if(attributeInstance != null) {
+                        attributeInstance.addTransientModifier(new AttributeModifier(currentSlotId, modifier.getName(), modifier.getAmount(), modifier.getOperation()));
+                    }
                 }
+
             });
         }
     }
@@ -131,10 +133,11 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     @Override
     protected void dropEquipment() {
         super.dropEquipment();
+
         if (this.inventory != null) {
             for(int i = 0; i < this.inventory.getContainerSize(); ++i) {
                 ItemStack itemstack = this.inventory.getItem(i);
-                if (!itemstack.isEmpty() && !EnchantmentHelper.has(itemstack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP)) {
+                if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
                     this.spawnAtLocation(itemstack);
                 }
             }
@@ -144,6 +147,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     protected ItemStack getTurretItem() {return ItemStack.EMPTY;}
 
     @Override
+    @NotNull
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
@@ -153,7 +157,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             if (this.getHealth() != f) {
                 float f1 = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
                 this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);
-                itemstack.consume(1, player);
+                itemstack.shrink(1);
                 return InteractionResult.sidedSuccess(this.level().isClientSide);
             }
         }
@@ -194,10 +198,11 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(IS_PLACED, false);
-        builder.define(OWNER_NAME, "");
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+
+        this.entityData.define(IS_PLACED, false);
+        this.entityData.define(OWNER_NAME, "false");
     }
 
     @Override
@@ -301,6 +306,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         return this.entityData.get(OWNER_NAME);
     }
 
+    @Nullable
     public UUID getOwnerUUID() {
         return this.ownerUUID;
     }
@@ -317,7 +323,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         return (targetFilter & (1 << idx)) != 0;
     }
 
-    public void setTarget(int idx, boolean value) {
+    public void setTargetFilter(int idx, boolean value) {
         if (value) {
             targetFilter |= (1 << idx);
         } else {
@@ -385,7 +391,8 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             CompoundTag compoundtag = listtag.getCompound(i);
             int j = compoundtag.getByte("Slot") & 255;
             if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
+
+                this.inventory.setItem(j + 1, ItemStack.of(compoundtag));
             }
         }
     }
@@ -408,7 +415,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             if (!itemstack.isEmpty()) {
                 CompoundTag compoundtag = new CompoundTag();
                 compoundtag.putByte("Slot", (byte)(i - 1));
-                listtag.add(itemstack.save(this.registryAccess(), compoundtag));
+                listtag.add(itemstack.save(compoundtag));
             }
         }
         compound.put("Items", listtag);
@@ -432,7 +439,6 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
 
     @Override
     public void openCustomInventoryScreen(Player player) {
-
     }
 
     @Override

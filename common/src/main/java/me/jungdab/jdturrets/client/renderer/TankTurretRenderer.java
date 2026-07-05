@@ -15,7 +15,7 @@ public class TankTurretRenderer extends GeoEntityRenderer<TankTurret> {
     }
 
     @Override
-    protected void applyRotations(TankTurret animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
+    protected void applyRotations(TankTurret animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
     }
 
     @Override

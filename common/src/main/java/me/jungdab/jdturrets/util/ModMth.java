@@ -26,21 +26,10 @@ public class ModMth {
         double y = direction.y;
         double z = direction.z;
 
-        // 1. 수평 거리(X와 Z 축의 합성 벡터 길이)를 구합니다.
         double xzLength = Math.sqrt(x * x + z * z);
-
-        // 2. Pitch(상하 회전각) 계산
-        // 마인크래프트에서 위를 바라보면 -, 아래를 바라보면 + 입니다.
-        // -y와 수평 거리를 이용해 아크탄젠트를 구한 뒤 각도로 변환합니다.
         float pitch = (float) (Math.atan2(-y, xzLength) * (180.0D / Math.PI));
-
-        // 3. Yaw(좌우 회전각) 계산
-        // 마인크래프트의 Yaw 기준점에 맞추기 위해 atan2(x, z)를 사용하고
-        // 라디안을 각도로 바꾼 뒤 마인크래프트 방위 체계에 맞게 조정합니다.
         float yaw = (float) (Math.atan2(x, z) * (180.0D / Math.PI));
-        yaw = -yaw; // 방향 부호 반전
-
-        // 필요하다면 값을 반환 형식에 맞게 처리 (예: float 배열 또는 커스텀 객체)
+        yaw = -yaw;
         return new Vec2(pitch, yaw);
     }
 }

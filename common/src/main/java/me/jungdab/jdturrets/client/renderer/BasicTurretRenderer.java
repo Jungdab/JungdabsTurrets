@@ -13,7 +13,7 @@ public class BasicTurretRenderer extends GeoEntityRenderer<BasicTurret> {
     }
 
     @Override
-    protected void applyRotations(BasicTurret animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick, float nativeScale) {
+    protected void applyRotations(BasicTurret animatable, PoseStack poseStack, float ageInTicks, float rotationYaw, float partialTick) {
     }
 
     @Override

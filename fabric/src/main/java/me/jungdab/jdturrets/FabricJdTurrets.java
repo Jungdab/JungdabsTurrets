@@ -6,7 +6,6 @@ import me.jungdab.jdturrets.entity.TankTurret;
 import me.jungdab.jdturrets.init.ModEntities;
 import me.jungdab.jdturrets.network.C2STurretConfigPacket;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 
@@ -26,10 +25,6 @@ public class FabricJdTurrets implements ModInitializer {
     }
 
     private void initPayloads() {
-        PayloadTypeRegistry.playC2S().register(
-                C2STurretConfigPacket.TYPE,
-                C2STurretConfigPacket.STREAM_CODEC
-        );
-        ServerPlayNetworking.registerGlobalReceiver(C2STurretConfigPacket.TYPE, (packet, context) -> packet.handle(context.player()));
+        ServerPlayNetworking.registerGlobalReceiver(C2STurretConfigPacket.ID, (server, player, handler, buf, responseSender) -> C2STurretConfigPacket.handle(C2STurretConfigPacket.read(buf), player));
     }
 }
