@@ -1,6 +1,5 @@
 package me.jungdab.jdturrets.entity;
 
-import com.google.common.collect.Multimap;
 import me.jungdab.jdturrets.client.tracer.TraceRenderManager;
 import me.jungdab.jdturrets.entity.ai.TurretAttackGoal;
 import me.jungdab.jdturrets.entity.ai.TurretTargetGoal;
@@ -40,16 +39,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.UUID;
@@ -72,7 +67,6 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             UUID.fromString("5f56fed4-22cd-4821-912c-acddeaebd9ff")
     };
 
-    @Nullable
     private UUID ownerUUID;
 
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -147,7 +141,6 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     protected ItemStack getTurretItem() {return ItemStack.EMPTY;}
 
     @Override
-    @NotNull
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
 
@@ -306,7 +299,6 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         return this.entityData.get(OWNER_NAME);
     }
 
-    @Nullable
     public UUID getOwnerUUID() {
         return this.ownerUUID;
     }
@@ -368,12 +360,12 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
 
 
     @Override
-    protected @Nullable SoundEvent getHurtSound(DamageSource damageSource) {
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
         return ModSounds.TURRET_HURT.get();
     }
 
     @Override
-    protected @Nullable SoundEvent getDeathSound() {
+    protected SoundEvent getDeathSound() {
         return ModSounds.TURRET_DESTROY.get();
     }
 
@@ -442,7 +434,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     }
 
     @Override
-    public @org.jetbrains.annotations.Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+    public AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
         return new TurretContainerMenu(i, inventory, this.inventory, this.turretData, 0);
     }
 }

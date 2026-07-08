@@ -1,47 +1,20 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        mavenCentral()
         maven {
-            name = 'GeckoLib'
-            url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
-            content {
-                includeGroup("software.bernie.geckolib")
-            }
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
         }
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = 'Fabric'
-                    url = uri('https://maven.fabricmc.net')
-                }
-            }
-            filter {
-                includeGroup('net.fabricmc')
-                includeGroup('fabric-loom')
-            }
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
         }
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = 'Sponge'
-                    url = uri('https://repo.spongepowered.org/repository/maven-public')
-                }
-            }
-            filter {
-                includeGroupAndSubgroups("org.spongepowered")
-            }
+        maven {
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
-        exclusiveContent {
-            forRepository {
-                maven {
-                    name = 'Forge'
-                    url = uri('https://maven.minecraftforge.net')
-                }
-            }
-            filter {
-                includeGroupAndSubgroups('net.minecraftforge')
-            }
+        maven {
+            name = 'MinecraftForge'
+            url = 'https://maven.minecraftforge.net/'
         }
     }
 }
@@ -52,6 +25,6 @@ plugins {
 
 // This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
 rootProject.name = 'JungdabsTurrets'
-include('common')
-include('fabric')
-include('forge')
+include("common")
+include("fabric")
+include("forge")

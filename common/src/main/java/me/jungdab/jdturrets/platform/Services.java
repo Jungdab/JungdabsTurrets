@@ -4,12 +4,9 @@ import me.jungdab.jdturrets.Constants;
 
 import java.util.ServiceLoader;
 
-// Service loaders are a built-in Java feature that allow us to locate implementations of an interface that vary from one
-// environment to another. In the context of MultiLoader we use this feature to access a mock API in the common code that
-// is swapped out for the platform specific implementation at runtime.
 public class Services {
 
-    public static final IPlatformHelper PLATFORM = load(IPlatformHelper.class);
+    public static IPlatformHelper PLATFORM = load(IPlatformHelper.class);
 
     public static final INetworkHelper NETWORK = load(INetworkHelper.class);
 

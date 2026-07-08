@@ -44,7 +44,7 @@ public class ForgeRegistry implements IRegistry {
     }
 
     @Override
-    public <T extends AbstractContainerMenu> Supplier<MenuType<T>> registerMenuType(String id, IRegistry.MyMenuSupplier<T> menuType) {
+    public <T extends AbstractContainerMenu> Supplier<MenuType<T>> registerMenuType(String id, MyMenuSupplier<T> menuType) {
         return MENU_TYPES.register(id, () -> new MenuType<>(menuType::create, FeatureFlags.DEFAULT_FLAGS));
     }
 

@@ -17,7 +17,7 @@ public interface IRegistry {
     <T extends Item> Supplier<T> registerItem(String id, Supplier<T> item);
     Supplier<Holder<Attribute>> registerAttribute(String id, Supplier<Attribute> attribute);
     Supplier<SoundEvent> registerSound(String id, Supplier<SoundEvent> sound);
-    <T extends AbstractContainerMenu> Supplier<MenuType<T>> registerMenuType(String id, IRegistry.MyMenuSupplier<T> menuType);
+    <T extends AbstractContainerMenu> Supplier<MenuType<T>> registerMenuType(String id, MyMenuSupplier<T> menuType);
     <T extends Entity> Supplier<EntityType<T>> registerEntity(String id, Supplier<EntityType<T>> entityType);
     Supplier<CreativeModeTab> registerCreativeTab(String id, Supplier<CreativeModeTab> creativeModeTab);
 

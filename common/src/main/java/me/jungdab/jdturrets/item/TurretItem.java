@@ -20,7 +20,7 @@ import java.util.function.Supplier;
 public class TurretItem<T extends AbstractTurret> extends Item {
     private final Supplier<EntityType<T>> turret;
 
-    public TurretItem(Item.Properties properties, Supplier<EntityType<T>> turret) {
+    public TurretItem(Properties properties, Supplier<EntityType<T>> turret) {
         super(properties);
 
         this.turret = turret;

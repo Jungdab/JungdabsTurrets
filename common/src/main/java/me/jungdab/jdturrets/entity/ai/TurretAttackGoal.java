@@ -62,12 +62,16 @@ public class TurretAttackGoal extends Goal {
 
     @Override
     public boolean canUse() {
+        if(!this.turret.hasAmmo()) return false;
+
         LivingEntity target = this.turret.getTarget();
         return target != null && target.isAlive();
     }
 
     @Override
     public boolean canContinueToUse() {
+        if(!this.turret.hasAmmo()) return false;
+
         LivingEntity target = this.turret.getTarget();
         return target != null && target.isAlive();
     }

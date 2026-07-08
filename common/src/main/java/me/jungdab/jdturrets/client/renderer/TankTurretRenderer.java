@@ -1,9 +1,7 @@
 package me.jungdab.jdturrets.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import me.jungdab.jdturrets.client.model.SniperTurretModel;
 import me.jungdab.jdturrets.client.model.TankTurretModel;
-import me.jungdab.jdturrets.entity.SniperTurret;
 import me.jungdab.jdturrets.entity.TankTurret;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
