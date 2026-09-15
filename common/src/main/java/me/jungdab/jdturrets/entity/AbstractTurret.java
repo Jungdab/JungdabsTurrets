@@ -55,6 +55,8 @@ import java.util.UUID;
 
 public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventoryScreen, MenuProvider {
 
+    private static final int INVENTORY_FORMAT_VERSION = 1;
+
     public static final int TARGET_PLAYER = 0;
     public static final int TARGET_FRIENDLY_MOB = 1;
     public static final int TARGET_HOSTILE_MOB = 2;
@@ -182,6 +184,11 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
 
     @Override
     public boolean isPushable() {
+        return false;
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return false;
     }
 
@@ -380,12 +387,21 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         this.setPlaced(compound.getBoolean("placed"));
         this.entityData.set(OWNER_NAME, compound.getString("OwnerName"));
 
+        if (compound.contains("TargetFilter")) {
+            this.targetFilter = compound.getByte("TargetFilter");
+        }
+        if (compound.contains("TargetingMode")) {
+            this.targetingMode = compound.getInt("TargetingMode");
+        }
+
         ListTag listtag = compound.getList("Items", 10);
+        boolean currentInventoryFormat = compound.getInt("InventoryFormat") >= INVENTORY_FORMAT_VERSION;
         for(int i = 0; i < listtag.size(); ++i) {
             CompoundTag compoundtag = listtag.getCompound(i);
-            int j = compoundtag.getByte("Slot") & 255;
-            if (j < this.inventory.getContainerSize() - 1) {
-                this.inventory.setItem(j + 1, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
+            int savedSlot = compoundtag.getByte("Slot") & 255;
+            int inventorySlot = currentInventoryFormat ? savedSlot : savedSlot + 1;
+            if (inventorySlot < this.inventory.getContainerSize()) {
+                this.inventory.setItem(inventorySlot, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
             }
         }
     }
@@ -401,13 +417,16 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         }
         compound.putBoolean("placed", this.isPlaced());
         compound.putString("OwnerName", this.entityData.get(OWNER_NAME));
+        compound.putByte("TargetFilter", this.targetFilter);
+        compound.putInt("TargetingMode", this.targetingMode);
+        compound.putInt("InventoryFormat", INVENTORY_FORMAT_VERSION);
 
         ListTag listtag = new ListTag();
-        for(int i = 1; i < this.inventory.getContainerSize(); ++i) {
+        for(int i = 0; i < this.inventory.getContainerSize(); ++i) {
             ItemStack itemstack = this.inventory.getItem(i);
             if (!itemstack.isEmpty()) {
                 CompoundTag compoundtag = new CompoundTag();
-                compoundtag.putByte("Slot", (byte)(i - 1));
+                compoundtag.putByte("Slot", (byte)i);
                 listtag.add(itemstack.save(this.registryAccess(), compoundtag));
             }
         }
