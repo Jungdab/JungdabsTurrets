@@ -8,6 +8,7 @@ import me.jungdab.jdturrets.network.C2STurretConfigPacket;
 import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -180,8 +181,8 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         }
 
         @Override
-        public void onClick(double mouseX, double mouseY) {
-            super.onClick(mouseX, mouseY);
+        public void onClick(MouseButtonEvent event, boolean doubleClick) {
+            super.onClick(event, doubleClick);
 
             this.isChecked = !this.isChecked;
             this.onClick.accept(this);

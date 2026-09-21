@@ -158,7 +158,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
                 float f1 = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
                 this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);
                 itemstack.consume(1, player);
-                return this.level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
         }
 
@@ -173,11 +173,11 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
                     this.dropEquipment(serverLevel);
                     this.spawnAtLocation(serverLevel, this.getTurretItem());
                 }
-                return this.level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
         }
 
-        if(!this.level().isClientSide && player instanceof ServerPlayer sp) {
+        if(!this.level().isClientSide() && player instanceof ServerPlayer sp) {
             sp.openMenu(this);
         }
 
@@ -221,7 +221,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             this.lookAt(target, 180, 180);
         }
 
-        if(!this.level().isClientSide) {
+        if(!this.level().isClientSide()) {
             this.turretData.set(0, (int)(this.getHealth() * 10));
             this.turretData.set(1, (int)(this.getAttributeValue(Attributes.MAX_HEALTH) * 10));
             this.turretData.set(2, (int)(this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 10));
@@ -298,7 +298,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     private void updateOwnerName() {
         UUID u = this.getOwnerUUID();
         if(u == null) return;
-        MinecraftServer ms = this.getServer();
+        MinecraftServer ms = this.level().getServer();
         if(ms == null) return;
         ServerPlayer p = ms.getPlayerList().getPlayer(u);
         if(p == null) return;
