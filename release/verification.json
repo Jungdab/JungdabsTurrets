@@ -23,7 +23,7 @@
         "client": "user confirmed placement, attacks and configuration screens work in NeoForge",
         "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/kL3iSWqx",
         "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8940362",
-        "curseforgeStatus": "Under Review"
+        "curseforgeStatus": "Approved"
       },
       {
         "loader": "forge",
@@ -82,7 +82,7 @@
         "client": "passed automated client resource/model checks, placement of all 3 turret items, world rendering, trace rendering and all 3 configuration screens; screenshots inspected",
         "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/1r11DdZL",
         "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8940387",
-        "curseforgeStatus": "Baking (processing)"
+        "curseforgeStatus": "Approved"
       },
       {
         "loader": "neoforge",
@@ -132,6 +132,29 @@
         "build": "passed",
         "runtime": "4 mod server GameTests plus vanilla always_pass passed",
         "client": "automated placement, rendering, trace and configuration screens passed; screenshot review caught and verified fix for transparent stat labels"
+      }
+    ],
+    "uploaded": false
+  },
+  {
+    "minecraft": "1.21.7",
+    "branch": "codex/minecraft-1.21.7",
+    "artifacts": [
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.7-1.0.2.jar",
+        "sha256": "840008319630EEF46E8D4ED90E3DAE677044E1BE0307F54064C420159395CBCE",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      },
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.7-1.0.2.jar",
+        "sha256": "5BDF27B865F3C9C903E2B830154F2D2A9296CBF22E542031C3DEA939383144E5",
+        "build": "passed",
+        "runtime": "4 mod server GameTests plus vanilla always_pass passed",
+        "client": "automated placement, rendering, trace and all 3 configuration screens passed; screenshots inspected"
       }
     ],
     "uploaded": false

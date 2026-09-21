@@ -16,7 +16,9 @@ Per the owner's updated scope, create no Forge builds for Minecraft 1.21 or newe
 - `codex/minecraft-1.21.3`: three loader builds; Fabric server tests and user gameplay passed.
 - `codex/minecraft-1.21.4`: three loader builds and Fabric server tests passed; client verification pending.
 - `codex/minecraft-1.21.5`: GeckoLib 5 port; three loader builds, Fabric server and client tests passed.
-- `codex/minecraft-1.21.6`: three loader builds and Fabric server/client tests passed.
+- `codex/minecraft-1.21.6`: NeoForge/Fabric builds and Fabric server/client tests passed.
+- `codex/minecraft-1.21.7`: NeoForge/Fabric builds and Fabric server/client tests passed.
+- `codex/minecraft-1.21.8`: port in progress.
 
 ## Verification and publication
 
@@ -58,7 +60,7 @@ directory fixed it. JDK 21 is installed at `C:/Program Files/Java/jdk-21`.
 | Minecraft | Loader | Modrinth | CurseForge |
 | --- | --- | --- | --- |
 | 1.21.3 | Fabric | DdtCyIpt | 8940288 (approved) |
-| 1.21.3 | NeoForge | kL3iSWqx | 8940362 (submitted, under review) |
-| 1.21.5 | Fabric | 1r11DdZL | 8940387 (submitted, processing) |
+| 1.21.3 | NeoForge | kL3iSWqx | 8940362 (approved) |
+| 1.21.5 | Fabric | 1r11DdZL | 8940387 (approved) |
 
 NeoForge 1.21.3 was tested by the user for placement, attacks and configuration screens before upload.
