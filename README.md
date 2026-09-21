@@ -1,6 +1,6 @@
 ![Logo](https://cdn.modrinth.com/data/cached_images/85b1a9c7c9925725864cf1b2f4df099e4dbd4bb2.png)
 
-**Minecraft 1.21.2: Fabric and NeoForge compatibility port, currently under validation.**
+**Minecraft 1.21.2: Fabric and NeoForge compatibility port. Both loaders pass actual client/server gameplay verification.**
 
 This version bundles an unofficial GeckoLib 4 backport because upstream GeckoLib did not release a Minecraft 1.21.2 build. Fabric API is still required on Fabric. The bundled dependency retains GeckoLib's MIT license and contributor credits; see `vendor/geckolib/README.md` for its source and build instructions. Forge did not release a loader for Minecraft 1.21.2.
 

@@ -22,6 +22,6 @@ git apply /path/to/backport.patch
 
 The built artifacts are stored under `vendor/maven/me/jungdab/backport/geckolib` for reproducible local dependency resolution. The loader JAR is embedded in the turret mod's release JAR; players do not need to locate an unavailable official 1.21.2 GeckoLib release.
 
-Status: dependency build and game verification in progress. Do not publish until both loader builds and game tests pass.
+Status: both loader builds and actual client/server gameplay tests passed. Fabric also passes all four dedicated-server GameTests. Release archives were checked for the embedded library classes and license notices, and exclude development test classes.
 
 The upstream source license and the CurseForge GeckoLib license page both identify MIT. MIT grants modification and redistribution subject to preserving the copyright and permission notices. Platform review remains separate: identify the embedded library as an unofficial compatibility build, credit/link GeckoLib, explain the compatibility changes, and declare the embedded dependency. Relevant rules: https://modrinth.com/legal/rules and https://support.curseforge.com/support/solutions/articles/9000197279.
