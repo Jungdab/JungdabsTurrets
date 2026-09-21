@@ -53,7 +53,7 @@ public class TankTurret extends AbstractTurret {
 
         Vec3 pos = entity.position();
 
-        Packet<?> particlePacket = new ClientboundLevelParticlesPacket(ParticleTypes.EXPLOSION, true, pos.x, pos.y, pos.z, 0, 0, 0, 0, 0);
+        Packet<?> particlePacket = new ClientboundLevelParticlesPacket(ParticleTypes.EXPLOSION, true, false, pos.x, pos.y, pos.z, 0, 0, 0, 0, 0);
         Packet<?> soundPacket = new ClientboundSoundPacket(SoundEvents.GENERIC_EXPLODE, SoundSource.PLAYERS, pos.x, pos.y, pos.z, 3, 1, 0);
 
         for (ServerPlayer player : sl.players()) {

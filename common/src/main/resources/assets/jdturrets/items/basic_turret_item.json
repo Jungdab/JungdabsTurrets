@@ -1,0 +1,6 @@
+{
+  "model": {
+    "model": "jdturrets:item/basic_turret_item",
+    "type": "minecraft:model"
+  }
+}
