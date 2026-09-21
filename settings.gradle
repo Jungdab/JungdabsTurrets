@@ -55,4 +55,4 @@ rootProject.name = 'JungdabsTurrets'
 include('common')
 include('fabric')
 include('neoforge')
-include('forge')
+// Forge is excluded for Minecraft 1.21+ at the project owner's request.
