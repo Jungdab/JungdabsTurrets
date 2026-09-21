@@ -9,7 +9,7 @@ import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -45,7 +45,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_DAMAGE,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -65,7 +65,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_DAMAGE,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 0.50, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 0.50, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -85,7 +85,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_DAMAGE,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 0.75, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 0.75, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -104,7 +104,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_DAMAGE,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -123,7 +123,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_SPEED,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), -0.125, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), -0.125, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -142,7 +142,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_SPEED,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), -0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), -0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -161,7 +161,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_SPEED,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), -0.375, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), -0.375, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -180,7 +180,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ATTACK_SPEED,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), -0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), -0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -199,7 +199,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.MAX_HEALTH,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 0.25, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -218,7 +218,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.MAX_HEALTH,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -237,7 +237,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.MAX_HEALTH,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 0.75, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 0.75, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -256,7 +256,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.MAX_HEALTH,
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 1, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -275,7 +275,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             ModAttributes.ATTACK_RANGE.get(),
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 2, AttributeModifier.Operation.ADD_VALUE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 2, AttributeModifier.Operation.ADD_VALUE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -294,7 +294,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             ModAttributes.ATTACK_RANGE.get(),
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 4, AttributeModifier.Operation.ADD_VALUE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 4, AttributeModifier.Operation.ADD_VALUE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -313,7 +313,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             ModAttributes.ATTACK_RANGE.get(),
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 6, AttributeModifier.Operation.ADD_VALUE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 6, AttributeModifier.Operation.ADD_VALUE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -332,7 +332,7 @@ public class ModItems {
                             ItemAttributeModifiers.builder()
                                     .add(
                                             ModAttributes.ATTACK_RANGE.get(),
-                                            new AttributeModifier(ResourceLocation.withDefaultNamespace(""), 8, AttributeModifier.Operation.ADD_VALUE),
+                                            new AttributeModifier(Identifier.withDefaultNamespace(""), 8, AttributeModifier.Operation.ADD_VALUE),
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
@@ -389,7 +389,7 @@ public class ModItems {
     );
 
     private static Item.Properties properties(String name) {
-        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name)));
+        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name)));
     }
 
     public static void init() {};

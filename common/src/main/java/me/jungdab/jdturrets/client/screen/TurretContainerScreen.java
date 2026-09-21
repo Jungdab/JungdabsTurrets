@@ -8,6 +8,7 @@ import me.jungdab.jdturrets.network.C2STurretConfigPacket;
 import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -17,7 +18,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -28,7 +29,7 @@ import java.util.function.Consumer;
 public class TurretContainerScreen extends AbstractContainerScreen<TurretContainerMenu> {
     private static final Map<Integer, AbstractTurret> DUMMY_TURRETS = new HashMap<>();
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/turret_container.png");
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Constants.MOD_ID, "textures/gui/turret_container.png");
 
     private float xMouse;
     private float yMouse;
@@ -90,7 +91,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         if(DUMMY_TURRETS.containsKey(type)) {
             AbstractTurret dummyTurret = DUMMY_TURRETS.get(type);
             if(!placed) {
-                dummyTurret.getAnimatableInstanceCache().getManagerForId(0).getAnimationControllers().get("Turret").forceAnimationReset();
+                dummyTurret.getAnimatableInstanceCache().getManagerForId(dummyTurret.getId()).getAnimationControllers().get("Turret").reset();
                 dummyTurret.tickCount = 0;
                 placed = true;
                 return;
@@ -180,8 +181,8 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         }
 
         @Override
-        public void onClick(double mouseX, double mouseY) {
-            super.onClick(mouseX, mouseY);
+        public void onClick(MouseButtonEvent event, boolean doubleClick) {
+            super.onClick(event, doubleClick);
 
             this.isChecked = !this.isChecked;
             this.onClick.accept(this);

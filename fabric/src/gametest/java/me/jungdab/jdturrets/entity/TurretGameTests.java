@@ -24,7 +24,7 @@ public class TurretGameTests {
     @GameTest
     public void allRecipesLoad(GameTestHelper helper) {
         long count = helper.getLevel().getServer().getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.id().location().getNamespace().equals("jdturrets"))
+                .filter(recipe -> recipe.id().identifier().getNamespace().equals("jdturrets"))
                 .count();
         assertTrue(helper, count == 24, "All 24 turret recipes must load; found " + count);
         helper.succeed();

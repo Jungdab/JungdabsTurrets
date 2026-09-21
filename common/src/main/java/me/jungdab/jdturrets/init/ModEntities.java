@@ -4,7 +4,7 @@ import me.jungdab.jdturrets.entity.BasicTurret;
 import me.jungdab.jdturrets.Constants;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import me.jungdab.jdturrets.entity.SniperTurret;
 import me.jungdab.jdturrets.entity.TankTurret;
 import me.jungdab.jdturrets.platform.Services;
@@ -39,7 +39,7 @@ public class ModEntities {
     );
 
     private static ResourceKey<EntityType<?>> key(String name) {
-        return ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name));
+        return ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(Constants.MOD_ID, name));
     }
 
     public static void init() {}

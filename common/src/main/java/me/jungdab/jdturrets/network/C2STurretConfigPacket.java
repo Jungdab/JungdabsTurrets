@@ -5,7 +5,7 @@ import me.jungdab.jdturrets.entity.AbstractTurret;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 
@@ -38,7 +38,7 @@ public record C2STurretConfigPacket (
         }
     }
 
-    public static final Type<C2STurretConfigPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "c2s_turret_config_packet"));
+    public static final Type<C2STurretConfigPacket> TYPE = new Type<>(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "c2s_turret_config_packet"));
 
     public static final StreamCodec<FriendlyByteBuf, C2STurretConfigPacket> STREAM_CODEC = new StreamCodec<>() {
         public C2STurretConfigPacket decode(FriendlyByteBuf byteBuf) {return C2STurretConfigPacket.read(byteBuf);}

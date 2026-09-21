@@ -1,6 +1,6 @@
 ![Logo](https://cdn.modrinth.com/data/cached_images/85b1a9c7c9925725864cf1b2f4df099e4dbd4bb2.png)
 
-**Minecraft 1.21.7: requires GeckoLib 5.2.1 or a compatible GeckoLib 4 release for this Minecraft version.**
+**Minecraft 1.21.11: requires GeckoLib 5.4.5 for this Minecraft version. NeoForge and Fabric are supported.**
 
 
 This is a simple mod that adds various turrets to the game.

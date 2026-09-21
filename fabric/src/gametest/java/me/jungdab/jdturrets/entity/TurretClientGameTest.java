@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
@@ -23,11 +23,11 @@ public class TurretClientGameTest implements FabricClientGameTest {
     public void runTest(ClientGameTestContext context) {
         context.runOnClient(client -> {
             for (String name : List.of("basic_turret", "sniper_turret", "tank_turret")) {
-                var id = ResourceLocation.fromNamespaceAndPath("jdturrets", "entity/" + name);
-                if (!GeckoLibResources.getBakedModels().containsKey(id)) {
+                var id = Identifier.fromNamespaceAndPath("jdturrets", "entity/" + name);
+                if (!GeckoLibResources.getBakedModels().cache().containsKey(id)) {
                     throw new AssertionError("Missing baked turret model: " + id);
                 }
-                if (!GeckoLibResources.getBakedAnimations().containsKey(id)) {
+                if (!GeckoLibResources.getBakedAnimations().cache().containsKey(id)) {
                     throw new AssertionError("Missing baked turret animations: " + id);
                 }
             }

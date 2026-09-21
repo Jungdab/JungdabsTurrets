@@ -10,6 +10,8 @@ import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.renderer.base.RenderPassInfo;
+import software.bernie.geckolib.renderer.base.BoneSnapshots;
 
 public class AbstractTurretRenderer<T extends AbstractTurret, R extends LivingEntityRenderState & GeoRenderState>
         extends GeoEntityRenderer<T, R> {
@@ -18,15 +20,24 @@ public class AbstractTurretRenderer<T extends AbstractTurret, R extends LivingEn
     }
 
     @Override
-    protected void applyRotations(R state, PoseStack poseStack, float nativeScale) {
+    protected void applyRotations(RenderPassInfo<R> renderPass, PoseStack poseStack, float nativeScale) {
         // The head bone rotates; the stationary turret base must not rotate with a living entity's body.
     }
 
     @Override
-    public void addRenderData(T turret, Void relatedObject, R state) {
-        float partialTick = state.getGeckolibData(DataTickets.PARTIAL_TICK);
+    public void addRenderData(T turret, Void relatedObject, R state, float partialTick) {
         state.addGeckolibData(DataTickets.ENTITY_PITCH, turret.getViewXRot(partialTick));
         state.addGeckolibData(DataTickets.ENTITY_YAW, Mth.lerp(partialTick, turret.yRotO, turret.getYRot()));
+    }
+
+    @Override
+    public void adjustModelBonesForRender(RenderPassInfo<R> renderPass, BoneSnapshots snapshots) {
+        snapshots.ifPresent("head", head -> {
+            float pitch = renderPass.getGeckolibData(DataTickets.ENTITY_PITCH);
+            float yaw = renderPass.getGeckolibData(DataTickets.ENTITY_YAW);
+            head.setRotX(-pitch * Mth.DEG_TO_RAD);
+            head.setRotY(-yaw * Mth.DEG_TO_RAD + Mth.PI);
+        });
     }
 
     @Override

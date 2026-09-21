@@ -2,9 +2,8 @@ package me.jungdab.jdturrets.client.tracer;
 
 
 import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.Camera;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
@@ -19,17 +18,12 @@ public class TraceRenderManager {
         TRACERS.add(new ClientTracer(start, end, System.currentTimeMillis(),duration)); // 0.15초 동안 지속
     }
 
-    public static void render(PoseStack poseStack, Camera camera, MultiBufferSource.BufferSource buffers) {
+    public static void submit(PoseStack poseStack, Vec3 cameraPos, SubmitNodeCollector collector) {
         TRACERS.removeIf(ClientTracer::isExpired);
         if (TRACERS.isEmpty()) return;
 
-        Vec3 cameraPos = camera.getPosition();
-
         poseStack.pushPose();
         poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
-        Matrix4f matrix = poseStack.last().pose();
-
-        VertexConsumer bufferBuilder = buffers.getBuffer(RenderType.debugQuads());
 
         for(ClientTracer tracer : TRACERS) {
             Vec3 start = tracer.start();
@@ -58,16 +52,17 @@ public class TraceRenderManager {
             int r = 255, g = 255, b = 30;
             int a = (int)(alpha * 200);
 
-            bufferBuilder.addVertex(matrix, (float)p1.x, (float)p1.y, (float)p1.z).setColor(r, g, b, a);
-            bufferBuilder.addVertex(matrix, (float)p2.x, (float)p2.y, (float)p2.z).setColor(r, g, b, a);
-            bufferBuilder.addVertex(matrix, (float)p3.x, (float)p3.y, (float)p3.z).setColor(r, g, b, a);
-            bufferBuilder.addVertex(matrix, (float)p4.x, (float)p4.y, (float)p4.z).setColor(r, g, b, a);
+            collector.submitCustomGeometry(poseStack, RenderTypes.debugQuads(), (pose, vertices) -> {
+                Matrix4f matrix = pose.pose();
+                vertices.addVertex(matrix, (float)p1.x, (float)p1.y, (float)p1.z).setColor(r, g, b, a);
+                vertices.addVertex(matrix, (float)p2.x, (float)p2.y, (float)p2.z).setColor(r, g, b, a);
+                vertices.addVertex(matrix, (float)p3.x, (float)p3.y, (float)p3.z).setColor(r, g, b, a);
+                vertices.addVertex(matrix, (float)p4.x, (float)p4.y, (float)p4.z).setColor(r, g, b, a);
+            });
 
         }
 
-        buffers.endBatch(RenderType.debugQuads());
         poseStack.popPose();
     }
 
 }
-

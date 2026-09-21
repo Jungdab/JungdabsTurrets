@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
@@ -47,7 +47,7 @@ import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animatable.processing.AnimationController;
+import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -69,10 +69,10 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
     private static final RawAnimation DESTROY = RawAnimation.begin().thenPlay("destroy");
 
-    private static final ResourceLocation[] SLOT_MODIFIER_IDS = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_0"),
-            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_1"),
-            ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_2")
+    private static final Identifier[] SLOT_MODIFIER_IDS = new Identifier[]{
+            Identifier.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_0"),
+            Identifier.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_1"),
+            Identifier.fromNamespaceAndPath(Constants.MOD_ID, "turret_upgrade_slot_2")
     };
 
     @Nullable
@@ -106,7 +106,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         AttributeInstance attackRangeAttr = this.getAttribute(ModAttributes.ATTACK_RANGE.get());
         AttributeInstance maxHealthAttr = this.getAttribute(Attributes.MAX_HEALTH);
 
-        for(ResourceLocation id : SLOT_MODIFIER_IDS) {
+        for(Identifier id : SLOT_MODIFIER_IDS) {
             if(attackDamageAttr != null) attackDamageAttr.removeModifier(id);
             if(attackSpeedAttr != null) attackSpeedAttr.removeModifier(id);
             if(attackRangeAttr != null) attackRangeAttr.removeModifier(id);
@@ -120,7 +120,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             ItemAttributeModifiers attributeModifiers = stack.get(DataComponents.ATTRIBUTE_MODIFIERS);
             if(attributeModifiers == null) continue;
 
-            ResourceLocation currentSlotId = SLOT_MODIFIER_IDS[slot];
+            Identifier currentSlotId = SLOT_MODIFIER_IDS[slot];
 
             attributeModifiers.modifiers().forEach(entry -> {
                 AttributeInstance attribute = this.getAttribute(entry.attribute());
@@ -158,7 +158,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
                 float f1 = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
                 this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);
                 itemstack.consume(1, player);
-                return this.level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
         }
 
@@ -173,11 +173,11 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
                     this.dropEquipment(serverLevel);
                     this.spawnAtLocation(serverLevel, this.getTurretItem());
                 }
-                return this.level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
+                return this.level().isClientSide() ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
         }
 
-        if(!this.level().isClientSide && player instanceof ServerPlayer sp) {
+        if(!this.level().isClientSide() && player instanceof ServerPlayer sp) {
             sp.openMenu(this);
         }
 
@@ -221,7 +221,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
             this.lookAt(target, 180, 180);
         }
 
-        if(!this.level().isClientSide) {
+        if(!this.level().isClientSide()) {
             this.turretData.set(0, (int)(this.getHealth() * 10));
             this.turretData.set(1, (int)(this.getAttributeValue(Attributes.MAX_HEALTH) * 10));
             this.turretData.set(2, (int)(this.getAttributeValue(Attributes.ATTACK_DAMAGE) * 10));
@@ -298,7 +298,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     private void updateOwnerName() {
         UUID u = this.getOwnerUUID();
         if(u == null) return;
-        MinecraftServer ms = this.getServer();
+        MinecraftServer ms = this.level().getServer();
         if(ms == null) return;
         ServerPlayer p = ms.getPlayerList().getPlayer(u);
         if(p == null) return;
