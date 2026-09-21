@@ -10,15 +10,15 @@ Per the owner's updated scope, create no Forge builds for Minecraft 1.21 or newe
 
 ## Branches
 
-- `codex/minecraft-1.21.2`: Fabric and NeoForge dependency backport in progress; no official Forge loader.
+- `codex/minecraft-1.21.2`: embedded GeckoLib compatibility backport; both loaders passed client/server verification and were uploaded in NeoForge then Fabric order.
 
 - `codex/minecraft-multiversion`: support audit and release tracking, based on local `master` at `c57080a`.
 - `codex/minecraft-1.21.3`: three loader builds; Fabric server tests and user gameplay passed.
-- `codex/minecraft-1.21.4`: three loader builds and Fabric server tests passed; client verification pending.
-- `codex/minecraft-1.21.5`: GeckoLib 5 port; three loader builds, Fabric server and client tests passed.
-- `codex/minecraft-1.21.6`: NeoForge/Fabric builds and Fabric server/client tests passed.
-- `codex/minecraft-1.21.7`: NeoForge/Fabric builds and Fabric server/client tests passed.
-- `codex/minecraft-1.21.8`: port in progress.
+- `codex/minecraft-1.21.4`: NeoForge/Fabric builds and both client smoke tests passed, plus Fabric server tests.
+- `codex/minecraft-1.21.5`: GeckoLib 5 port; NeoForge/Fabric builds and both client tests passed, plus Fabric server tests.
+- `codex/minecraft-1.21.6`: NeoForge/Fabric builds and both client tests passed, plus Fabric server tests.
+- `codex/minecraft-1.21.7`: NeoForge/Fabric builds and both client tests passed, plus Fabric server tests.
+- `codex/minecraft-1.21.8`: NeoForge/Fabric builds, both client tests and Fabric server tests passed; fixed preview rendering with recent Fabric API.
 
 ## Verification and publication
 
@@ -59,6 +59,8 @@ directory fixed it. JDK 21 is installed at `C:/Program Files/Java/jdk-21`.
 
 | Minecraft | Loader | Modrinth | CurseForge |
 | --- | --- | --- | --- |
+| 1.21.2 | NeoForge | CJJrQ1zE | 8941656 (submitted) |
+| 1.21.2 | Fabric | HaARmWGC | 8941697 (submitted) |
 | 1.21.3 | Fabric | DdtCyIpt | 8940288 (approved) |
 | 1.21.3 | NeoForge | kL3iSWqx | 8940362 (approved) |
 | 1.21.5 | Fabric | 1r11DdZL | 8940387 (approved) |

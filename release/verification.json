@@ -1,5 +1,36 @@
 [
   {
+    "minecraft": "1.21.2",
+    "branch": "codex/minecraft-1.21.2",
+    "artifacts": [
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.2-1.0.2.jar",
+        "sha256": "C42B5A6AC74533DCB47D736E22882CFA199C1D201DDF8BDCA4BE979ECAC6DFBB",
+        "build": "passed",
+        "runtime": "integrated client/server smoke test passed: 24 recipes, packets, damage, ammunition, NBT",
+        "client": "three turret placements, models/tracer, all configuration screens passed; screenshots inspected",
+        "dependency": "embedded unofficial MIT-licensed GeckoLib 4.7.3-jdt.1 backport",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/CJJrQ1zE",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8941656",
+        "curseforgeStatus": "Under Review"
+      },
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.2-1.0.2.jar",
+        "sha256": "692101820634800F2D85DBD684E793A31AC743E10D5B91676324F2ED3AB95B9B",
+        "build": "passed",
+        "runtime": "4 dedicated server GameTests passed; integrated packets,24 recipes,attack,ammo,NBT passed",
+        "client": "three turret placements, world/tracer rendering, all configuration screens passed; all four fresh screenshots inspected",
+        "dependency": "embedded MIT-licensed unofficial GeckoLib 4.7.3-jdt.1; Fabric API required",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/HaARmWGC",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8941697",
+        "curseforgeStatus": "Processing"
+      }
+    ],
+    "uploaded": "NeoForge then Fabric uploaded to both platforms"
+  },
+  {
     "minecraft": "1.21.3",
     "branch": "codex/minecraft-1.21.3",
     "artifacts": [
@@ -47,15 +78,21 @@
         "sha256": "49D62868120AB1B3C99FE9B3ED5A721090F739B2DEFF26E846621A5E5117DE1F",
         "build": "passed",
         "runtime": "4 server GameTests passed",
-        "client": "not tested"
+        "client": "actual client smoke passed: three models, trace and all configuration screens; client chip/ammo sync and fresh screenshots checked",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/W2R9yIGF",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8941763",
+        "curseforgeStatus": "Submitted"
       },
       {
         "loader": "neoforge",
         "file": "jdturrets-neoforge-1.21.4-1.0.2.jar",
         "sha256": "96AFB906D3E0754EE12DE080A29F04FB1AD4B093EB4D91812155482B2317EC7B",
         "build": "passed",
-        "runtime": "not tested",
-        "client": "not tested"
+        "runtime": "integrated server gameplay passed: 24 recipes, C2S settings, damage, ammo, NBT",
+        "client": "actual client smoke passed: three models, trace and all configuration screens; client chip/ammo sync and fresh screenshots checked",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/lRyArzpO",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8941724",
+        "curseforgeStatus": "Baking"
       },
       {
         "loader": "forge",
@@ -67,7 +104,7 @@
         "publication": "excluded by owner: no Forge for Minecraft 1.21+"
       }
     ],
-    "uploaded": false
+    "uploaded": "Fabric and NeoForge uploaded to both platforms"
   },
   {
     "minecraft": "1.21.5",
@@ -89,8 +126,11 @@
         "file": "jdturrets-neoforge-1.21.5-1.0.2.jar",
         "sha256": "14B403CBBF6FD2EDC1D5DC729405B0E77D9A1E511AD88171F964CBAEFDF4D832",
         "build": "passed",
-        "runtime": "not tested",
-        "client": "not tested"
+        "runtime": "integrated client/server smoke test passed: 24 recipes, packets, damage, ammunition, NBT",
+        "client": "automated three turret placements, models/tracer and all configuration screens passed; four screenshots inspected",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/DxUHCokL",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8941783",
+        "curseforgeStatus": "Submitted"
       },
       {
         "loader": "forge",
@@ -102,7 +142,7 @@
         "publication": "excluded by owner: no Forge for Minecraft 1.21+"
       }
     ],
-    "uploaded": "Fabric uploaded to both platforms; NeoForge awaiting client tests; Forge excluded by owner"
+    "uploaded": "Fabric and NeoForge uploaded to both platforms"
   },
   {
     "minecraft": "1.21.6",
@@ -122,8 +162,8 @@
         "file": "jdturrets-neoforge-1.21.6-1.0.2.jar",
         "sha256": "A45C90147E828D2D45FDC3457F987A39040C9E9F0EE330B3DC5540C879867409",
         "build": "passed",
-        "runtime": "not tested",
-        "client": "not tested"
+        "runtime": "integrated client/server smoke test passed: 24 recipes, packets, damage, ammunition, NBT",
+        "client": "automated three turret placements, models/tracer and all configuration screens passed; four screenshots inspected"
       },
       {
         "loader": "fabric",
@@ -145,8 +185,8 @@
         "file": "jdturrets-neoforge-1.21.7-1.0.2.jar",
         "sha256": "840008319630EEF46E8D4ED90E3DAE677044E1BE0307F54064C420159395CBCE",
         "build": "passed",
-        "runtime": "not tested",
-        "client": "not tested"
+        "runtime": "integrated client/server smoke test passed: 24 recipes, packets, damage, ammunition, NBT",
+        "client": "automated three turret placements, models/tracer and all configuration screens passed; four screenshots inspected"
       },
       {
         "loader": "fabric",
@@ -155,6 +195,53 @@
         "build": "passed",
         "runtime": "4 mod server GameTests plus vanilla always_pass passed",
         "client": "automated placement, rendering, trace and all 3 configuration screens passed; screenshots inspected"
+      }
+    ],
+    "uploaded": false
+  },
+  {
+    "minecraft": "1.21.8",
+    "branch": "codex/minecraft-1.21.8",
+    "artifacts": [
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.8-1.0.2.jar",
+        "sha256": "B2AC93D425B60A37F4586A17BD6E12AD69CEE0E927998117663F4CE0D2A8CE1D",
+        "build": "passed",
+        "runtime": "integrated server gameplay passed: 24 recipes, C2S settings, damage, ammo, NBT",
+        "client": "actual client smoke passed: all turret models, trace, configuration screens and chip/ammo sync; screenshots inspected"
+      },
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.8-1.0.2.jar",
+        "sha256": "8F37F50B9E653F1053C526EC45C0E0BC22DC9D708D436AD726992282404827E2",
+        "build": "passed",
+        "runtime": "4 mod server GameTests plus vanilla always_pass",
+        "client": "Fabric client GameTest passed including three model resources, placements, rendering, traces and all configuration screens; screenshots inspected; preview render-state/light compatibility fixed"
+      }
+    ],
+    "uploaded": false
+  },
+  {
+    "minecraft": "1.21.10",
+    "branch": "codex/minecraft-1.21.10",
+    "commit": "3bf76cf",
+    "artifacts": [
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.10-1.0.2.jar",
+        "sha256": "0EAFADC9109B909F4A2C9501C683B68E697B2042C0CB50493D06F8119D08DA1B",
+        "build": "passed",
+        "runtime": "integrated gameplay smoke passed",
+        "client": "all three turrets, trace and configuration screens passed; fresh screenshots inspected"
+      },
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.10-1.0.2.jar",
+        "sha256": "4CF7B7676E5B5612BAE0C69B9B10F2F1E1226CCE954CCFE056E17970A6B54B99",
+        "build": "passed",
+        "runtime": "5 server GameTests passed",
+        "client": "actual client tests passed; screenshots inspected"
       }
     ],
     "uploaded": false
