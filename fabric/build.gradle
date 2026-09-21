@@ -70,5 +70,11 @@ loom {
             vmArg '-Dfabric-api.gametest'
             vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.file('gametest-results.xml').get().asFile.absolutePath}"
         }
+        clientGameTest {
+            client()
+            source sourceSets.gametest
+            runDir 'build/client-gametest'
+            vmArg '-Dfabric.client.gametest'
+        }
     }
 }
