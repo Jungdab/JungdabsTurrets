@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.ItemLore;
 
 import java.util.function.Supplier;
@@ -48,7 +49,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -69,7 +69,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -90,7 +89,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -110,7 +108,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -130,7 +127,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -150,7 +146,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -170,7 +165,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -190,7 +184,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -210,7 +203,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -230,7 +222,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -250,7 +241,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -270,7 +260,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -290,7 +279,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -310,7 +298,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -330,7 +317,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -350,7 +336,6 @@ public class ModItems {
                                             EquipmentSlotGroup.ANY
                                     )
                                     .build()
-                                    .withTooltip(false)
                     )
                     .component(
                             DataComponents.LORE,
@@ -409,3 +394,4 @@ public class ModItems {
 
     public static void init() {};
 }
+

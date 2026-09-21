@@ -11,6 +11,7 @@ import me.jungdab.jdturrets.init.ModItems;
 import me.jungdab.jdturrets.init.ModSounds;
 import me.jungdab.jdturrets.util.ModMth;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -45,8 +46,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -382,24 +383,22 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        if (compound.hasUUID("Owner")) {
-            this.ownerUUID = compound.getUUID("Owner");
-        }
-        this.setPlaced(compound.getBoolean("placed"));
-        this.entityData.set(OWNER_NAME, compound.getString("OwnerName"));
+        this.ownerUUID = compound.read("Owner", UUIDUtil.CODEC).orElse(null);
+        this.setPlaced(compound.getBooleanOr("placed", false));
+        this.entityData.set(OWNER_NAME, compound.getStringOr("OwnerName", ""));
 
         if (compound.contains("TargetFilter")) {
-            this.targetFilter = compound.getByte("TargetFilter");
+            this.targetFilter = compound.getByteOr("TargetFilter", (byte) 0);
         }
         if (compound.contains("TargetingMode")) {
-            this.targetingMode = compound.getInt("TargetingMode");
+            this.targetingMode = compound.getIntOr("TargetingMode", 0);
         }
 
-        ListTag listtag = compound.getList("Items", 10);
-        boolean currentInventoryFormat = compound.getInt("InventoryFormat") >= INVENTORY_FORMAT_VERSION;
+        ListTag listtag = compound.getListOrEmpty("Items");
+        boolean currentInventoryFormat = compound.getIntOr("InventoryFormat", 0) >= INVENTORY_FORMAT_VERSION;
         for(int i = 0; i < listtag.size(); ++i) {
-            CompoundTag compoundtag = listtag.getCompound(i);
-            int savedSlot = compoundtag.getByte("Slot") & 255;
+            CompoundTag compoundtag = listtag.getCompoundOrEmpty(i);
+            int savedSlot = compoundtag.getByteOr("Slot", (byte) 0) & 255;
             int inventorySlot = currentInventoryFormat ? savedSlot : savedSlot + 1;
             if (inventorySlot < this.inventory.getContainerSize()) {
                 this.inventory.setItem(inventorySlot, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
@@ -414,7 +413,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         this.updateOwnerName();
 
         if (this.ownerUUID != null) {
-            compound.putUUID("Owner", this.ownerUUID);
+            compound.store("Owner", UUIDUtil.CODEC, this.ownerUUID);
         }
         compound.putBoolean("placed", this.isPlaced());
         compound.putString("OwnerName", this.entityData.get(OWNER_NAME));
@@ -437,7 +436,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(
-                new AnimationController<>(this, "Turret", 0, state -> {
+                new AnimationController<AbstractTurret>("Turret", 0, state -> {
                     if(this.isDeadOrDying()) return state.setAndContinue(DESTROY);
                     if(!this.isPlaced()) return state.setAndContinue(PLACE);
                     return state.setAndContinue(IDLE);
@@ -460,3 +459,4 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         return new TurretContainerMenu(i, inventory, this.inventory, this.turretData, 0);
     }
 }
+

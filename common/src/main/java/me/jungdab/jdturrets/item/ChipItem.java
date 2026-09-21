@@ -9,23 +9,32 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.component.TooltipDisplay;
+import org.jetbrains.annotations.Nullable;
 
 public class ChipItem extends Item {
     public ChipItem(Properties properties) {
-        super(properties);
+        super(properties.component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.ATTRIBUTE_MODIFIERS, true)));
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
         ItemEnchantments enchantments = stack.get(DataComponents.ENCHANTMENTS);
 
         if (enchantments != null && enchantments.getLevel(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.INFINITY)) > 0) {
             ItemStack newStack = new ItemStack(ModItems.INFINITY_AMMO_CHIP.get());
             if (entity instanceof Player player) {
-                player.getInventory().setItem(slotId, newStack);
+                for (int slotId = 0; slotId < player.getInventory().getContainerSize(); slotId++) {
+                    if (player.getInventory().getItem(slotId) == stack) {
+                        player.getInventory().setItem(slotId, newStack);
+                        break;
+                    }
+                }
             }
         }
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
+        super.inventoryTick(stack, level, entity, equipmentSlot);
     }
 }
+

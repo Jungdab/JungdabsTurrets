@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LevelRendererMixin {
     @Inject(method = "renderEntities", at = @At("TAIL"))
     private void render(PoseStack poseStack, MultiBufferSource.BufferSource buffers, Camera camera, DeltaTracker deltaTracker, List<Entity> entities, CallbackInfo ci) {
-        TraceRenderManager.render(poseStack, camera);
+        TraceRenderManager.render(poseStack, camera, buffers);
     }
 }
+

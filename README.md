@@ -1,6 +1,6 @@
 ![Logo](https://cdn.modrinth.com/data/cached_images/85b1a9c7c9925725864cf1b2f4df099e4dbd4bb2.png)
 
-**Minecraft 1.21.4: requires GeckoLib 4.8.5 or a compatible GeckoLib 4 release for this Minecraft version.**
+**Minecraft 1.21.5: requires GeckoLib 5.1.0 or a compatible GeckoLib 4 release for this Minecraft version.**
 
 
 This is a simple mod that adds various turrets to the game.
@@ -28,3 +28,4 @@ Mix it up and have fun!
 
 # **Recipe**
 ![recipe](https://cdn.modrinth.com/data/cached_images/4e6fb9218a5300d966422655eba1984ed61c01e8.png)
+
