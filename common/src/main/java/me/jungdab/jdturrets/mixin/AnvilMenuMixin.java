@@ -24,8 +24,8 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     @Final
     private DataSlot cost;
 
-    public AnvilMenuMixin(@Nullable MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access) {
-        super(type, containerId, playerInventory, access);
+    public AnvilMenuMixin(@Nullable MenuType<?> type, int containerId, Inventory playerInventory, ContainerLevelAccess access, ItemCombinerMenuSlotDefinition slots) {
+        super(type, containerId, playerInventory, access, slots);
     }
 
     @Inject(method = "createResult", at = @At("HEAD"), cancellable = true)
@@ -37,7 +37,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         ItemEnchantments enchantments = itemstack2.get(DataComponents.STORED_ENCHANTMENTS);
         if(enchantments == null) return;
 
-        if(!itemstack2.is(Items.ENCHANTED_BOOK) || enchantments.getLevel(this.player.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.INFINITY)) <= 0) return;
+        if(!itemstack2.is(Items.ENCHANTED_BOOK) || enchantments.getLevel(this.player.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.INFINITY)) <= 0) return;
 
         this.cost.set(8);
         this.resultSlots.setItem(0, ModItems.INFINITY_AMMO_CHIP.get().getDefaultInstance());

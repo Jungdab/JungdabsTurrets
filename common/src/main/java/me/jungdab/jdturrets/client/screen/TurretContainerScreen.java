@@ -8,6 +8,8 @@ import me.jungdab.jdturrets.network.C2STurretConfigPacket;
 import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -112,7 +114,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
 
     @Override
     protected void renderBg(GuiGraphics graphics, float v, int i, int i1) {
-        graphics.blit(TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        graphics.blit(RenderType::guiTextured, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
 
         int type = this.menu.getTurretType();
         if(type == 0) return;
@@ -159,9 +161,9 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         if(level == null) return null;
 
         return switch (type) {
-            case 1 -> ModEntities.BASIC_TURRET.get().create(level);
-            case 2 -> ModEntities.SNIPER_TURRET.get().create(level);
-            case 3 -> ModEntities.TANK_TURRET.get().create(level);
+            case 1 -> ModEntities.BASIC_TURRET.get().create(level, EntitySpawnReason.LOAD);
+            case 2 -> ModEntities.SNIPER_TURRET.get().create(level, EntitySpawnReason.LOAD);
+            case 3 -> ModEntities.TANK_TURRET.get().create(level, EntitySpawnReason.LOAD);
             default -> null;
         };
     }
@@ -190,7 +192,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
             float u = isHovered ? 32 : 0;
             u += isChecked ? 0 : 16;
 
-            guiGraphics.blit(TEXTURE, this.getX(), this.getY(), u, 187, this.getWidth(), this.getHeight(), 256, 256);
+            guiGraphics.blit(RenderType::guiTextured, TEXTURE, this.getX(), this.getY(), u, 187, this.getWidth(), this.getHeight(), 256, 256);
 
             if(isHovered) {
                 guiGraphics.renderTooltip(Minecraft.getInstance().font, this.getMessage(), i, i1);

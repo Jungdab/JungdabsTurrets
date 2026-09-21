@@ -48,3 +48,27 @@ loom {
         }
     }
 }
+
+// Test mod is a separate source set and is never included in the release JAR.
+sourceSets {
+    gametest {
+        compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+    }
+}
+
+loom {
+    mods {
+        jdturrets { sourceSet sourceSets.main }
+        jdturrets_test { sourceSet sourceSets.gametest }
+    }
+    runs {
+        gameTest {
+            server()
+            source sourceSets.gametest
+            runDir 'build/gametest'
+            vmArg '-Dfabric-api.gametest'
+            vmArg "-Dfabric-api.gametest.report-file=${layout.buildDirectory.file('gametest-results.xml').get().asFile.absolutePath}"
+        }
+    }
+}

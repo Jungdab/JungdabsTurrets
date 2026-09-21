@@ -16,6 +16,6 @@ public class ModDamageTypes {
     public static final ResourceKey<DamageType> TURRET_SHOOT = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "turret_shoot"));
 
     public static DamageSource turretShoot(Entity entity) {
-        return new DamageSource(entity.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(TURRET_SHOOT), entity);
+        return new DamageSource(entity.registryAccess().lookupOrThrow(Registries.DAMAGE_TYPE).getOrThrow(TURRET_SHOOT), entity);
     }
 }

@@ -5,12 +5,8 @@
     "# "
   ],
   "key": {
-    "#": {
-      "item": "minecraft:gunpowder"
-    },
-    "$": {
-      "item": "minecraft:gold_ingot"
-    }
+    "#": "minecraft:gunpowder",
+    "$": "minecraft:gold_ingot"
   },
   "result": {
     "id": "jdturrets:turret_ammo",

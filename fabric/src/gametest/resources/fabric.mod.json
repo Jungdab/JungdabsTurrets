@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "jdturrets_test",
+  "version": "1.0.0",
+  "name": "Jungdab's Turrets Game Tests",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-gametest": ["me.jungdab.jdturrets.entity.TurretGameTests"]
+  },
+  "depends": {
+    "jdturrets": "*",
+    "fabric-gametest-api-v1": "*"
+  }
+}

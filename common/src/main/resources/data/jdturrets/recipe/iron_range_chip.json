@@ -6,15 +6,9 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:iron_ingot"
-    },
-    "$": {
-      "item": "jdturrets:chip_base"
-    },
-    "%": {
-      "item": "minecraft:spyglass"
-    }
+    "#": "minecraft:iron_ingot",
+    "$": "jdturrets:chip_base",
+    "%": "minecraft:spyglass"
   },
   "result": {
     "id": "jdturrets:iron_range_chip"

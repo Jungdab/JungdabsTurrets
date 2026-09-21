@@ -1,6 +1,9 @@
 package me.jungdab.jdturrets.init;
 
 import me.jungdab.jdturrets.item.ChipItem;
+import me.jungdab.jdturrets.Constants;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import me.jungdab.jdturrets.item.TurretItem;
 import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.ChatFormatting;
@@ -20,22 +23,22 @@ public class ModItems {
 
     public static final Supplier<Item> WRENCH = Services.REGISTRY.registerItem(
             "wrench",
-            () -> new Item(new Item.Properties().stacksTo(1))
+            () -> new Item(properties("wrench").stacksTo(1))
     );
 
     public static final Supplier<Item> TURRET_AMMO = Services.REGISTRY.registerItem(
             "turret_ammo",
-            () -> new Item(new Item.Properties())
+            () -> new Item(properties("turret_ammo"))
     );
 
     public static final Supplier<Item> CHIP_BASE = Services.REGISTRY.registerItem(
             "chip_base",
-            () -> new ChipItem(new Item.Properties())
+            () -> new ChipItem(properties("chip_base"))
     );
 
     public static final Supplier<Item> IRON_DAMAGE_CHIP = Services.REGISTRY.registerItem(
             "iron_damage_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("iron_damage_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -56,7 +59,7 @@ public class ModItems {
 
     public static final Supplier<Item> GOLDEN_DAMAGE_CHIP = Services.REGISTRY.registerItem(
             "golden_damage_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("golden_damage_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -77,7 +80,7 @@ public class ModItems {
 
     public static final Supplier<Item> DIAMOND_DAMAGE_CHIP = Services.REGISTRY.registerItem(
             "diamond_damage_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("diamond_damage_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -97,7 +100,7 @@ public class ModItems {
 
     public static final Supplier<Item> NETHERITE_DAMAGE_CHIP = Services.REGISTRY.registerItem(
             "netherite_damage_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("netherite_damage_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -117,7 +120,7 @@ public class ModItems {
 
     public static final Supplier<Item> IRON_RELOAD_CHIP = Services.REGISTRY.registerItem(
             "iron_reload_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("iron_reload_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -137,7 +140,7 @@ public class ModItems {
 
     public static final Supplier<Item> GOLDEN_RELOAD_CHIP = Services.REGISTRY.registerItem(
             "golden_reload_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("golden_reload_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -157,7 +160,7 @@ public class ModItems {
 
     public static final Supplier<Item> DIAMOND_RELOAD_CHIP = Services.REGISTRY.registerItem(
             "diamond_reload_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("diamond_reload_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -177,7 +180,7 @@ public class ModItems {
 
     public static final Supplier<Item> NETHERITE_RELOAD_CHIP = Services.REGISTRY.registerItem(
             "netherite_reload_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("netherite_reload_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -197,7 +200,7 @@ public class ModItems {
 
     public static final Supplier<Item> IRON_HEALTH_CHIP = Services.REGISTRY.registerItem(
             "iron_health_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("iron_health_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -217,7 +220,7 @@ public class ModItems {
 
     public static final Supplier<Item> GOLDEN_HEALTH_CHIP = Services.REGISTRY.registerItem(
             "golden_health_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("golden_health_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -237,7 +240,7 @@ public class ModItems {
 
     public static final Supplier<Item> DIAMOND_HEALTH_CHIP = Services.REGISTRY.registerItem(
             "diamond_health_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("diamond_health_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -257,7 +260,7 @@ public class ModItems {
 
     public static final Supplier<Item> NETHERITE_HEALTH_CHIP = Services.REGISTRY.registerItem(
             "netherite_health_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("netherite_health_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -277,7 +280,7 @@ public class ModItems {
 
     public static final Supplier<Item> IRON_RANGE_CHIP = Services.REGISTRY.registerItem(
             "iron_range_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("iron_range_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -297,7 +300,7 @@ public class ModItems {
 
     public static final Supplier<Item> GOLDEN_RANGE_CHIP = Services.REGISTRY.registerItem(
             "golden_range_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("golden_range_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -317,7 +320,7 @@ public class ModItems {
 
     public static final Supplier<Item> DIAMOND_RANGE_CHIP = Services.REGISTRY.registerItem(
             "diamond_range_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("diamond_range_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -337,7 +340,7 @@ public class ModItems {
 
     public static final Supplier<Item> NETHERITE_RANGE_CHIP = Services.REGISTRY.registerItem(
             "netherite_range_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("netherite_range_chip")
                     .component(
                             DataComponents.ATTRIBUTE_MODIFIERS,
                             ItemAttributeModifiers.builder()
@@ -357,7 +360,7 @@ public class ModItems {
 
     public static final Supplier<Item> POTATO_CHIP = Services.REGISTRY.registerItem(
             "potato_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("potato_chip")
                     .component(
                             DataComponents.LORE,
                             ItemLore.EMPTY.withLineAdded(Component.translatable("item.jdturrets.lore.potato").withStyle(ChatFormatting.YELLOW))
@@ -367,7 +370,7 @@ public class ModItems {
 
     public static final Supplier<Item> INFINITY_AMMO_CHIP = Services.REGISTRY.registerItem(
             "infinity_ammo_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("infinity_ammo_chip")
                     .component(
                             DataComponents.LORE,
                             ItemLore.EMPTY.withLineAdded(Component.translatable("item.jdturrets.lore.infinity_ammo").withStyle(ChatFormatting.GREEN))
@@ -377,7 +380,7 @@ public class ModItems {
 
     public static final Supplier<Item> SELF_REPAIR_CHIP = Services.REGISTRY.registerItem(
             "self_repair_chip",
-            () -> new ChipItem(new Item.Properties()
+            () -> new ChipItem(properties("self_repair_chip")
                     .component(
                             DataComponents.LORE,
                             ItemLore.EMPTY.withLineAdded(Component.translatable("item.jdturrets.lore.self_repair").withStyle(ChatFormatting.GREEN))
@@ -387,18 +390,22 @@ public class ModItems {
 
     public static final Supplier<Item> BASIC_TURRET_ITEM = Services.REGISTRY.registerItem(
             "basic_turret_item",
-            () -> new TurretItem<>(new Item.Properties(), ModEntities.BASIC_TURRET)
+            () -> new TurretItem<>(properties("basic_turret_item"), ModEntities.BASIC_TURRET)
     );
 
     public static final Supplier<Item> SNIPER_TURRET_ITEM = Services.REGISTRY.registerItem(
             "sniper_turret_item",
-            () -> new TurretItem<>(new Item.Properties(), ModEntities.SNIPER_TURRET)
+            () -> new TurretItem<>(properties("sniper_turret_item"), ModEntities.SNIPER_TURRET)
     );
 
     public static final Supplier<Item> TANK_TURRET_ITEM = Services.REGISTRY.registerItem(
             "tank_turret_item",
-            () -> new TurretItem<>(new Item.Properties(), ModEntities.TANK_TURRET)
+            () -> new TurretItem<>(properties("tank_turret_item"), ModEntities.TANK_TURRET)
     );
+
+    private static Item.Properties properties(String name) {
+        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, name)));
+    }
 
     public static void init() {};
 }

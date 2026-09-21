@@ -19,6 +19,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -131,13 +132,13 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     }
 
     @Override
-    protected void dropEquipment() {
-        super.dropEquipment();
+    protected void dropEquipment(ServerLevel level) {
+        super.dropEquipment(level);
         if (this.inventory != null) {
             for(int i = 0; i < this.inventory.getContainerSize(); ++i) {
                 ItemStack itemstack = this.inventory.getItem(i);
                 if (!itemstack.isEmpty() && !EnchantmentHelper.has(itemstack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP)) {
-                    this.spawnAtLocation(itemstack);
+                    this.spawnAtLocation(level, itemstack);
                 }
             }
         }
@@ -156,7 +157,7 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
                 float f1 = 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F;
                 this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, f1);
                 itemstack.consume(1, player);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
         }
 
@@ -166,12 +167,12 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
 
             if (currentHealth >= maxHealth) {
                 this.playSound(SoundEvents.IRON_GOLEM_REPAIR, 1.0F, 1.0F);
-                if(!this.level().isClientSide) {
+                if(this.level() instanceof ServerLevel serverLevel) {
                     this.discard();
-                    this.dropEquipment();
-                    this.spawnAtLocation(this.getTurretItem());
+                    this.dropEquipment(serverLevel);
+                    this.spawnAtLocation(serverLevel, this.getTurretItem());
                 }
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return this.level().isClientSide ? InteractionResult.SUCCESS : InteractionResult.SUCCESS_SERVER;
             }
         }
 

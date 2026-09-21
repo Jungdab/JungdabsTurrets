@@ -6,21 +6,11 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:iron_ingot"
-    },
-    "$": {
-      "item": "jdturrets:chip_base"
-    },
-    "%": {
-      "item": "minecraft:redstone"
-    },
-    "^": {
-      "item": "minecraft:copper_ingot"
-    },
-    "&": {
-      "item": "minecraft:red_dye"
-    }
+    "#": "minecraft:iron_ingot",
+    "$": "jdturrets:chip_base",
+    "%": "minecraft:redstone",
+    "^": "minecraft:copper_ingot",
+    "&": "minecraft:red_dye"
   },
   "result": {
     "id": "jdturrets:sniper_turret_item"

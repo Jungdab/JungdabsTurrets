@@ -6,15 +6,9 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:iron_ingot"
-    },
-    "$": {
-      "item": "jdturrets:chip_base"
-    },
-    "%": {
-      "item": "jdturrets:turret_ammo"
-    }
+    "#": "minecraft:iron_ingot",
+    "$": "jdturrets:chip_base",
+    "%": "jdturrets:turret_ammo"
   },
   "result": {
     "id": "jdturrets:iron_damage_chip"

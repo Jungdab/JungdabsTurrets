@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {"item": "jdturrets:chip_base"},
-    {"item": "minecraft:potato"}
+    "jdturrets:chip_base",
+    "minecraft:potato"
   ],
   "result": {
     "id": "jdturrets:potato_chip"

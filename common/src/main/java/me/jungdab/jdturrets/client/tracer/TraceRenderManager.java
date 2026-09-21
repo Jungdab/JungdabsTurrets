@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
@@ -28,7 +29,7 @@ public class TraceRenderManager {
         poseStack.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
         Matrix4f matrix = poseStack.last().pose();
 
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        RenderSystem.setShader(CoreShaders.POSITION_COLOR);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
@@ -76,7 +77,7 @@ public class TraceRenderManager {
 
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
-        RenderSystem.disableDepthTest();
+        RenderSystem.enableDepthTest();
         poseStack.popPose();
     }
 

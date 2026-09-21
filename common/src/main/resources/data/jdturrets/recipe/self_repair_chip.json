@@ -1,8 +1,8 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {"item": "jdturrets:chip_base"},
-    {"item": "minecraft:golden_apple"}
+    "jdturrets:chip_base",
+    "minecraft:golden_apple"
   ],
   "result": {
     "id": "jdturrets:self_repair_chip"

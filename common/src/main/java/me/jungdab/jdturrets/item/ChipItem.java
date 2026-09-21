@@ -20,7 +20,7 @@ public class ChipItem extends Item {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         ItemEnchantments enchantments = stack.get(DataComponents.ENCHANTMENTS);
 
-        if (enchantments != null && enchantments.getLevel(level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(Enchantments.INFINITY)) > 0) {
+        if (enchantments != null && enchantments.getLevel(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.INFINITY)) > 0) {
             ItemStack newStack = new ItemStack(ModItems.INFINITY_AMMO_CHIP.get());
             if (entity instanceof Player player) {
                 player.getInventory().setItem(slotId, newStack);

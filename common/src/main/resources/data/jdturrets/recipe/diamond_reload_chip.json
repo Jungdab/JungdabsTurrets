@@ -6,12 +6,8 @@
     " # "
   ],
   "key": {
-    "#": {
-      "item": "minecraft:diamond"
-    },
-    "$": {
-      "item": "jdturrets:golden_reload_chip"
-    }
+    "#": "minecraft:diamond",
+    "$": "jdturrets:golden_reload_chip"
   },
   "result": {
     "id": "jdturrets:diamond_reload_chip"

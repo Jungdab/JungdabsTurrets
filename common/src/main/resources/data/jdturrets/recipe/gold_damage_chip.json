@@ -6,12 +6,8 @@
     "###"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:gold_ingot"
-    },
-    "$": {
-      "item": "jdturrets:iron_damage_chip"
-    }
+    "#": "minecraft:gold_ingot",
+    "$": "jdturrets:iron_damage_chip"
   },
   "result": {
     "id": "jdturrets:golden_damage_chip"
