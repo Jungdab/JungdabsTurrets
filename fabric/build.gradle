@@ -52,6 +52,7 @@ loom {
 // Test mod is a separate source set and is never included in the release JAR.
 sourceSets {
     gametest {
+        java.srcDir project(':common').file('src/clienttest/java')
         compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
         runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
     }
@@ -63,6 +64,12 @@ loom {
         jdturrets_test { sourceSet sourceSets.gametest }
     }
     runs {
+        clientSmokeTest {
+            client()
+            source sourceSets.gametest
+            runDir 'build/client-smoke'
+            vmArg '-Djdturrets.clientSmokeTest=true'
+        }
         gameTest {
             server()
             source sourceSets.gametest

@@ -5,7 +5,12 @@
   "name": "Jungdab's Turrets Game Tests",
   "environment": "*",
   "entrypoints": {
-    "fabric-gametest": ["me.jungdab.jdturrets.entity.TurretGameTests"]
+    "fabric-gametest": [
+      "me.jungdab.jdturrets.entity.TurretGameTests"
+    ],
+    "client": [
+      "me.jungdab.jdturrets.entity.FabricClientSmoke"
+    ]
   },
   "depends": {
     "jdturrets": "*",
