@@ -5,7 +5,8 @@
   "name": "Jungdab's Turrets Game Tests",
   "environment": "*",
   "entrypoints": {
-    "fabric-gametest": ["me.jungdab.jdturrets.entity.TurretGameTests"]
+    "fabric-gametest": ["me.jungdab.jdturrets.entity.TurretGameTests"],
+    "fabric-client-gametest": ["me.jungdab.jdturrets.entity.TurretClientGameTest"]
   },
   "depends": {
     "jdturrets": "*",
