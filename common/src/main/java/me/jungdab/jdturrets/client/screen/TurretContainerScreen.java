@@ -9,7 +9,7 @@ import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -114,7 +114,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
 
     @Override
     protected void renderBg(GuiGraphics graphics, float v, int i, int i1) {
-        graphics.blit(RenderType::guiTextured, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
 
         int type = this.menu.getTurretType();
         if(type == 0) return;
@@ -134,10 +134,10 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
     protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
         super.renderLabels(guiGraphics, mouseX, mouseY);
 
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(0)) + "/" + String.format("%.1f", menu.getData(1)), 157, 23, 4210752, false);
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(2)), 157, 35, 4210752, false);
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(3)), 157, 47, 4210752, false);
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(4)), 157, 58, 4210752, false);
+        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(0)) + "/" + String.format("%.1f", menu.getData(1)), 157, 23, 0xFF404040, false);
+        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(2)), 157, 35, 0xFF404040, false);
+        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(3)), 157, 47, 0xFF404040, false);
+        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(4)), 157, 58, 0xFF404040, false);
 
         if(this.ownerLabel == null) {
             int id = this.menu.getTurretId();
@@ -150,7 +150,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         }
         else {
             int w = this.font.width(this.ownerLabel);
-            guiGraphics.drawString(this.font, this.ownerLabel, this.imageWidth-w-8, this.titleLabelY, 4210752, false);
+            guiGraphics.drawString(this.font, this.ownerLabel, this.imageWidth-w-8, this.titleLabelY, 0xFF404040, false);
         }
     }
 
@@ -192,10 +192,10 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
             float u = isHovered ? 32 : 0;
             u += isChecked ? 0 : 16;
 
-            guiGraphics.blit(RenderType::guiTextured, TEXTURE, this.getX(), this.getY(), u, 187, this.getWidth(), this.getHeight(), 256, 256);
+            guiGraphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, this.getX(), this.getY(), u, 187, this.getWidth(), this.getHeight(), 256, 256);
 
             if(isHovered) {
-                guiGraphics.renderTooltip(Minecraft.getInstance().font, this.getMessage(), i, i1);
+                guiGraphics.setTooltipForNextFrame(Minecraft.getInstance().font, this.getMessage(), i, i1);
             }
         }
 

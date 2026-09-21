@@ -5,7 +5,9 @@ import me.jungdab.jdturrets.init.ModItems;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
+import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -45,10 +47,10 @@ public class TurretGameTests {
             for (int slot = 3; slot < 7; slot++) {
                 original.inventory.setItem(slot, new ItemStack(ModItems.TURRET_AMMO.get(), slot + 5));
             }
-            CompoundTag saved = new CompoundTag();
+            var saved = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, helper.getLevel().registryAccess());
             original.saveWithoutId(saved);
             AbstractTurret restored = type.create(helper.getLevel(), EntitySpawnReason.LOAD);
-            restored.load(saved);
+            restored.load(TagValueInput.create(ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), saved.buildResult()));
             assertTrue(helper, owner.equals(restored.getOwnerUUID()), "Owner must survive save/load");
             assertTrue(helper, restored.targetFilter == 10 && restored.targetingMode == 2, "Target settings must survive save/load");
             for (int slot = 0; slot < 7; slot++) {
@@ -94,5 +96,3 @@ public class TurretGameTests {
         helper.succeed();
     }
 }
-
-

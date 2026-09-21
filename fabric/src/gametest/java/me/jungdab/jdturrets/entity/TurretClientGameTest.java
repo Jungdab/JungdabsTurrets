@@ -66,7 +66,7 @@ public class TurretClientGameTest implements FabricClientGameTest {
                     player.openMenu(turrets.get(turretIndex));
                 });
                 context.waitForScreen(TurretContainerScreen.class);
-                context.waitTicks(2);
+                context.waitTicks(40);
                 context.takeScreenshot("turret-menu-" + index);
                 context.runOnClient(client -> client.player.closeContainer());
                 context.waitTick();

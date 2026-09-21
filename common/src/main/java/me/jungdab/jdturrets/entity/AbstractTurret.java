@@ -12,8 +12,8 @@ import me.jungdab.jdturrets.init.ModSounds;
 import me.jungdab.jdturrets.util.ModMth;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.UUIDUtil;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -381,33 +381,24 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(ValueInput compound) {
         super.readAdditionalSaveData(compound);
         this.ownerUUID = compound.read("Owner", UUIDUtil.CODEC).orElse(null);
         this.setPlaced(compound.getBooleanOr("placed", false));
         this.entityData.set(OWNER_NAME, compound.getStringOr("OwnerName", ""));
 
-        if (compound.contains("TargetFilter")) {
-            this.targetFilter = compound.getByteOr("TargetFilter", (byte) 0);
-        }
-        if (compound.contains("TargetingMode")) {
-            this.targetingMode = compound.getIntOr("TargetingMode", 0);
-        }
-
-        ListTag listtag = compound.getListOrEmpty("Items");
+        this.targetFilter = compound.getByteOr("TargetFilter", this.targetFilter);
+        this.targetingMode = compound.getIntOr("TargetingMode", this.targetingMode);
         boolean currentInventoryFormat = compound.getIntOr("InventoryFormat", 0) >= INVENTORY_FORMAT_VERSION;
-        for(int i = 0; i < listtag.size(); ++i) {
-            CompoundTag compoundtag = listtag.getCompoundOrEmpty(i);
-            int savedSlot = compoundtag.getByteOr("Slot", (byte) 0) & 255;
-            int inventorySlot = currentInventoryFormat ? savedSlot : savedSlot + 1;
-            if (inventorySlot < this.inventory.getContainerSize()) {
-                this.inventory.setItem(inventorySlot, ItemStack.parse(this.registryAccess(), compoundtag).orElse(ItemStack.EMPTY));
+        for (ItemStackWithSlot saved : compound.listOrEmpty("Items", ItemStackWithSlot.CODEC)) {
+            int slot = currentInventoryFormat ? saved.slot() : saved.slot() + 1;
+            if (slot >= 0 && slot < this.inventory.getContainerSize()) {
+                this.inventory.setItem(slot, saved.stack());
             }
         }
     }
-
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(ValueOutput compound) {
         super.addAdditionalSaveData(compound);
 
         this.updateOwnerName();
@@ -421,18 +412,12 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         compound.putInt("TargetingMode", this.targetingMode);
         compound.putInt("InventoryFormat", INVENTORY_FORMAT_VERSION);
 
-        ListTag listtag = new ListTag();
-        for(int i = 0; i < this.inventory.getContainerSize(); ++i) {
-            ItemStack itemstack = this.inventory.getItem(i);
-            if (!itemstack.isEmpty()) {
-                CompoundTag compoundtag = new CompoundTag();
-                compoundtag.putByte("Slot", (byte)i);
-                listtag.add(itemstack.save(this.registryAccess(), compoundtag));
-            }
+        var items = compound.list("Items", ItemStackWithSlot.CODEC);
+        for (int slot = 0; slot < this.inventory.getContainerSize(); slot++) {
+            ItemStack stack = this.inventory.getItem(slot);
+            if (!stack.isEmpty()) items.add(new ItemStackWithSlot(slot, stack));
         }
-        compound.put("Items", listtag);
     }
-
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(
@@ -459,4 +444,3 @@ public class AbstractTurret extends Mob implements GeoEntity, HasCustomInventory
         return new TurretContainerMenu(i, inventory, this.inventory, this.turretData, 0);
     }
 }
-

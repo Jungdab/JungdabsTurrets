@@ -12,7 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -58,7 +58,7 @@ public class ForgeRegistry implements IRegistry {
         return CREATIVE_MODE_TABS.register(id, creativeModeTab);
     }
 
-    public static void init(IEventBus bus) {
+    public static void init(BusGroup bus) {
         ITEMS.register(bus);
         ATTRIBUTES.register(bus);
         SOUND_EVENTS.register(bus);

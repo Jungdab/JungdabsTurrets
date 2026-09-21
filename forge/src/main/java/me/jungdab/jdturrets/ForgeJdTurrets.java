@@ -14,8 +14,8 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.bus.BusGroup;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -24,14 +24,13 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class ForgeJdTurrets {
 
     public ForgeJdTurrets() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        BusGroup modEventBus = FMLJavaModLoadingContext.get().getModBusGroup();
 
         CommonClass.init();
         ForgeRegistry.init(modEventBus);
         ForgeNetworking.init();
-        modEventBus.register(this);
+        EntityAttributeCreationEvent.getBus(modEventBus).addListener(this::initAttribute);
     }
-    @SubscribeEvent
     public void initAttribute(EntityAttributeCreationEvent e) {
         e.put(ModEntities.BASIC_TURRET.get(), BasicTurret.createAttribute().build());
         e.put(ModEntities.SNIPER_TURRET.get(), SniperTurret.createAttribute().build());
