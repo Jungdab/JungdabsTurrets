@@ -1,6 +1,18 @@
 ![Logo](https://cdn.modrinth.com/data/cached_images/85b1a9c7c9925725864cf1b2f4df099e4dbd4bb2.png)
 
-**Minecraft 1.21.3: requires GeckoLib 4.7.1 or a compatible GeckoLib 4 release for this Minecraft version.**
+**Minecraft 1.21.2: Fabric and NeoForge compatibility port, currently under validation.**
+
+This version bundles an unofficial GeckoLib 4 backport because upstream GeckoLib did not release a Minecraft 1.21.2 build. Fabric API is still required on Fabric. The bundled dependency retains GeckoLib's MIT license and contributor credits; see `vendor/geckolib/README.md` for its source and build instructions. Forge did not release a loader for Minecraft 1.21.2.
+
+Development verification with JDK 21:
+
+```powershell
+./gradlew.bat :neoforge:build :fabric:build :fabric:runGameTest
+./gradlew.bat :neoforge:runClientSmokeTest -PclientSmokeTest
+./gradlew.bat :fabric:runClientSmokeTest
+```
+
+Client smoke tests create a separate flat world, place all three turret items, verify configuration packets, recipes, damage, ammunition and NBT persistence, render the turret models/tracer and open each menu. They save screenshots and a pass marker in each loader's `build/client-smoke` folder. Test classes are excluded from release JARs.
 
 
 This is a simple mod that adds various turrets to the game.

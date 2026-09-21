@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+[[mods]]
+modId="jdturrets_clienttest"
+version="1.0.0"
+displayName="Turret development client tests"
+[[dependencies.jdturrets_clienttest]]
+modId="jdturrets"
+type="required"
+versionRange="[1.0.2,)"
+ordering="AFTER"
+side="CLIENT"

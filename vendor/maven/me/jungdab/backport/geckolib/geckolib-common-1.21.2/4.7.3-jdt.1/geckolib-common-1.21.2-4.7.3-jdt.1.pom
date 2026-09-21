@@ -1,0 +1,1 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion><groupId>me.jungdab.backport.geckolib</groupId><artifactId>geckolib-common-1.21.2</artifactId><version>4.7.3-jdt.1</version><name>GeckoLib unofficial Minecraft 1.21.2 backport</name><licenses><license><name>MIT</name><url>https://opensource.org/license/mit</url></license></licenses></project>

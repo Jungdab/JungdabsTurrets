@@ -1,0 +1,174 @@
+diff --git a/build.gradle.kts b/build.gradle.kts
+index e8c442b..8e10222 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -4,4 +4,13 @@ plugins {
+ 
+     // Required for NeoGradle
+     alias(libs.plugins.ideaext)
+-}
+\ No newline at end of file
++}
++
++// This compatibility fork only produces local artifacts for Jungdab's Turrets.
++allprojects {
++    tasks.configureEach {
++        if (name.startsWith("publish") || name.startsWith("modrinth")) {
++            enabled = false
++        }
++    }
++}
+diff --git a/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts b/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts
+index 7c77888..08bcfb6 100644
+--- a/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts
++++ b/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts
+@@ -67,6 +67,8 @@ val neoforgeVersionRange = libs.get().findVersion("neoforge.range").get()
+ val neoforgeLoaderVersionRange = libs.get().findVersion("neoforge.loader.range").get()
+ 
+ tasks.withType<Jar>().configureEach {
++    if (name == "remapJar" || name == "remapSourcesJar") return@configureEach
++
+     from(rootProject.file("LICENSE")) {
+         rename { "${it}_${modDisplayName}" }
+     }
+@@ -134,4 +136,4 @@ publishing {
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/common/src/main/resources/META-INF/GECKOLIB-THIRD-PARTY-NOTICES.txt b/common/src/main/resources/META-INF/GECKOLIB-THIRD-PARTY-NOTICES.txt
+new file mode 100644
+index 0000000..fdd5278
+--- /dev/null
++++ b/common/src/main/resources/META-INF/GECKOLIB-THIRD-PARTY-NOTICES.txt
+@@ -0,0 +1,29 @@
++GeckoLib contains the following MIT-licensed contributions.
++The main GeckoLib license is included separately in this JAR.
++
++EasingType.step: Copyright (c) 2015 Boris Chumichev
++Source notice: software/bernie/geckolib/animation/EasingType.java
++
++McLib mathematical expression parser: Copyright (c) 2018 McHorse
++Original design credited to McHorse, Eliot Lash and Hiroku; adapted by Tslat.
++Source: https://github.com/fadookie/particleman/blob/be1ce93c3cbd0f894742e3f41c0c6b23880be046/LICENSE-mclib.md
++
++The MIT License (MIT)
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++THE SOFTWARE.
+diff --git a/fabric/src/main/resources/fabric.mod.json b/fabric/src/main/resources/fabric.mod.json
+index bdc33d1..da3a2f5 100644
+--- a/fabric/src/main/resources/fabric.mod.json
++++ b/fabric/src/main/resources/fabric.mod.json
+@@ -31,11 +31,11 @@
+    		"fabricloader": ">=${fabric_loader_version_range}",
+ 		"fabric-api": ">=${fabric_api_version_range}",
+ 		"java": ">=17",
+-		"minecraft": ">=${minecraft_version}"
++		"minecraft": "${minecraft_version}"
+ 	},
+ 	"custom": {
+ 		"modmenu": {
+ 			"badges": [ "library" ]
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/gradle.properties b/gradle.properties
+index c8d23c6..49fc3a2 100644
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -4,8 +4,8 @@ org.gradle.daemon=false
+ 
+ # Project Settings
+ modId=geckolib
+-modDisplayName=GeckoLib 4
++modDisplayName=GeckoLib 4 (Jungdab 1.21.2 backport)
+ group=software.bernie.geckolib
+ modLicense=MIT
+ modAuthors=Gecko, Eliot, AzureDoom, DerToaster, Tslat, Witixin
+-modDescription=GeckoLib is an animation engine for Minecraft Mods, with support for complex 3D keyframe-based animations, 30+ easings, concurrent animation support, sound and particle keyframes, event keyframes, and more.
++modDescription=Unofficial Minecraft 1.21.2 backport of GeckoLib 4, bundled with Jungdab's Turrets. Original animation engine by the GeckoLib contributors; this compatibility build is maintained separately.
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+index 55b8b57..8b30ade 100644
+--- a/gradle/libs.versions.toml
++++ b/gradle/libs.versions.toml
+@@ -1,20 +1,20 @@
+ [versions]
+ # GeckoLib
+-    geckolib = "4.7.3"
++    geckolib = "4.7.3-jdt.1"
+ 
+ # Common
+-    minecraft-range = "[1.21.3,)"
+-    minecraft = "1.21.3"
++    minecraft-range = "[1.21.2]"
++    minecraft = "1.21.2"
+     parchment-minecraft = "1.21"
+     parchment = "2024.07.28"
+-    neoform = "1.21.3-20241023.131943"
++    neoform = "1.21.2-20241022.151510"
+     jopt-simple = "5.0.4"
+ 
+ # Fabric
+     fabric = "0.16.9"
+     fabric-range = "0.16"
+-    fabric-api = "0.107.0+1.21.3"
+-    fabric-api-range = "0.106.0+1.21.3"
++    fabric-api = "0.106.1+1.21.2"
++    fabric-api-range = "0.106.1+1.21.2"
+ 
+ # Forge
+     forge-fml-range = "[53,)"
+@@ -24,8 +24,8 @@
+ 
+ # Neoforge
+     neoforge-loader-range = "[4,)"
+-    neoforge-range = "[21.3.7-beta,)"
+-    neoforge = "21.3.10-beta"
++    neoforge-range = "[21.2.1-beta,21.3)"
++    neoforge = "21.2.1-beta"
+ 
+ # Dependencies
+     mixin = "0.8.7"
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+index ff23a68..9355b41 100644
+--- a/gradle/wrapper/gradle-wrapper.properties
++++ b/gradle/wrapper/gradle-wrapper.properties
+@@ -1,6 +1,6 @@
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-8.14.2-bin.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.10-bin.zip
+ networkTimeout=10000
+ validateDistributionUrl=true
+ zipStoreBase=GRADLE_USER_HOME
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+index e1134e5..df29502 100644
+--- a/settings.gradle.kts
++++ b/settings.gradle.kts
+@@ -50,5 +50,5 @@ rootProject.name = "geckolib"
+ 
+ include("common")
+ include("fabric")
+-include("forge")
++// Forge has no published Minecraft 1.21.2 loader.
+ include("neoforge")

@@ -52,7 +52,33 @@ repositories {
 }
 
 dependencies {
-    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+    implementation "me.jungdab.backport.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+    jarJar("me.jungdab.backport.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {
+        version { strictly "[${geckolib_version}]" }
+    }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+if (providers.gradleProperty('clientSmokeTest').isPresent()) {
+    sourceSets {
+        clienttest {
+            java.srcDir project(':common').file('src/clienttest/java')
+            compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+            runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+        }
+    }
+    neoForge {
+        mods {
+            jdturrets_clienttest { sourceSet sourceSets.clienttest }
+        }
+        runs {
+            clientSmokeTest {
+                client()
+                sourceSet = sourceSets.clienttest
+                gameDirectory = layout.buildDirectory.dir('client-smoke').get().asFile
+                systemProperty('jdturrets.clientSmokeTest', 'true')
+            }
+        }
+    }
+}
