@@ -21,11 +21,15 @@ Commands:
 ./gradlew.bat :neoforge:runClientSmokeTest -PclientSmokeTest
 ```
 
-Local evidence: `verification.log`, `verification-final.log`,
+Local evidence: `verification.log`, `verification-final.log`, `verification-pack.log`,
 `fabric/build/gametest-results.xml`, `fabric/build/client-gametest/screenshots/`,
 `neoforge/build/client-smoke/smoke-result.txt`, and its `screenshots/` directory.
 Test source sets are excluded from release JARs, verified by inspecting both JARs.
 The NeoForge test source set is activated only with `-PclientSmokeTest`.
+
+The root `pack.mcmeta` is intentionally omitted. Fabric generates pack metadata for
+the current resource/data pack type, and NeoForge accepts absent metadata for bundled
+mod resources. This avoids conflicting resource-format 69 and data-format 88 rules.
 
 No publication was performed in this branch. Publish after lower Minecraft versions,
 NeoForge before Fabric.
