@@ -1,0 +1,104 @@
+[
+  {
+    "minecraft": "1.21.3",
+    "branch": "codex/minecraft-1.21.3",
+    "artifacts": [
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.3-1.0.2.jar",
+        "sha256": "6F9968BC24280D0F8409B65CC3736F1AE0916519614D84AAFD158CE027044EB6",
+        "build": "passed",
+        "runtime": "4 server GameTests passed",
+        "client": "user confirmed gameplay works",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/DdtCyIpt",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8940288",
+        "curseforgeStatus": "Approved"
+      },
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.3-1.0.2.jar",
+        "sha256": "88E8F2CA5817520B08AC74FDF985364D9FA95EF68EC2B92B1BA2D00DB4684566",
+        "build": "passed",
+        "runtime": "integrated server gameplay passed",
+        "client": "user confirmed placement, attacks and configuration screens work in NeoForge",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/kL3iSWqx",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8940362",
+        "curseforgeStatus": "Under Review"
+      },
+      {
+        "loader": "forge",
+        "file": "Jungdab's Turrets-forge-1.21.3-1.0.2.jar",
+        "sha256": "603D6BD55161C60C2088C24E4B6F667C11148C2AA1D9A26EF2441D1151C70076",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      }
+    ],
+    "uploaded": "Fabric and NeoForge uploaded to both platforms; Forge awaiting runtime tests"
+  },
+  {
+    "minecraft": "1.21.4",
+    "branch": "codex/minecraft-1.21.4",
+    "artifacts": [
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.4-1.0.2.jar",
+        "sha256": "49D62868120AB1B3C99FE9B3ED5A721090F739B2DEFF26E846621A5E5117DE1F",
+        "build": "passed",
+        "runtime": "4 server GameTests passed",
+        "client": "not tested"
+      },
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.4-1.0.2.jar",
+        "sha256": "96AFB906D3E0754EE12DE080A29F04FB1AD4B093EB4D91812155482B2317EC7B",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      },
+      {
+        "loader": "forge",
+        "file": "Jungdab's Turrets-forge-1.21.4-1.0.2.jar",
+        "sha256": "40351E3FE9F22775B21A8005FEA686E44BAB5E98BEC13DA40B26180B39E1D713",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      }
+    ],
+    "uploaded": false
+  },
+  {
+    "minecraft": "1.21.5",
+    "branch": "codex/minecraft-1.21.5",
+    "artifacts": [
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.5-1.0.2.jar",
+        "sha256": "5A144FEAA59D0F15D196F26405C453302BC11A508393ABFECEF4D8DDF899180C",
+        "build": "passed",
+        "runtime": "4 mod server GameTests passed (plus vanilla always_pass)",
+        "client": "passed automated client resource/model checks, placement of all 3 turret items, world rendering, trace rendering and all 3 configuration screens; screenshots inspected",
+        "modrinth": "https://modrinth.com/mod/jungdabs-turrets/version/1r11DdZL",
+        "curseforge": "https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8940387",
+        "curseforgeStatus": "Baking (processing)"
+      },
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.5-1.0.2.jar",
+        "sha256": "14B403CBBF6FD2EDC1D5DC729405B0E77D9A1E511AD88171F964CBAEFDF4D832",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      },
+      {
+        "loader": "forge",
+        "file": "Jungdab's Turrets-forge-1.21.5-1.0.2.jar",
+        "sha256": "95AD46BC33839BC4C886424DB235FF9CB548F5A9F9CB0CEE09DD6A64E42D1573",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      }
+    ],
+    "uploaded": "Fabric uploaded to both platforms; other loaders awaiting tests"
+  }
+]
