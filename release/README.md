@@ -31,11 +31,11 @@ Before uploading a new version:
 4. Test multiplayer configuration changes and world save/reload.
 5. Record artifact hashes and test results, then add files to the existing hosting projects.
 
-**1.21.3 Fabric uploaded after testing:** [Modrinth](https://modrinth.com/mod/jungdabs-turrets/version/DdtCyIpt) and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/jungdabs-turrets/files/8940288). CurseForge was processing at submission. Other artifacts remain unpublished.
+For all future uploads, follow the user's requested order on both platforms: ascending Minecraft version, then **Forge → NeoForge → Fabric** within each version. A pending test or fix in an earlier file holds later uploads. Explicitly document unavailable upstream loader/dependency combinations. Preserve files already published before this ordering instruction.
 
 The first 1.21.5 manual test found a missing GeckoLib model on placement. Fixed by moving models and animations to GeckoLib 5 resource directories. Added `:fabric:runClientGameTest` to check baked models and animations, place all three turret items, render bullet traces and open every turret configuration screen. All checks now pass, with screenshots saved in `fabric/build/client-gametest/screenshots`.
 
-1.21.2 is blocked on GeckoLib: no official Maven or Modrinth release exists for that game version, and 1.21.3 artifacts require Minecraft >=1.21.3. Supporting it needs a separately maintained dependency port; it must not be advertised by relabelling 1.21.3 files.
+1.21.2 has no official GeckoLib Maven or Modrinth release, and 1.21.3 artifacts require Minecraft >=1.21.3. A separate local GeckoLib source backport is being investigated for Fabric and NeoForge; it must pass actual builds and runtime tests before any release. The Forge Maven version list has no 1.21.2 loader. Do not advertise support by relabelling 1.21.3 files.
 
 ## Dependency discovery
 
