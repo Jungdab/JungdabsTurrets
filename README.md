@@ -1,6 +1,6 @@
 ![Logo](https://cdn.modrinth.com/data/cached_images/85b1a9c7c9925725864cf1b2f4df099e4dbd4bb2.png)
 
-**Minecraft 1.21.8: requires GeckoLib 5.2.2 or a compatible GeckoLib 5 release for this Minecraft version.**
+**Minecraft 1.21.9: includes an unofficial GeckoLib 5 compatibility backport. Original library: https://github.com/bernie-g/geckolib (MIT). See vendor/geckolib for source, license and patch details. Fabric also requires Fabric API.**
 
 
 This is a simple mod that adds various turrets to the game.

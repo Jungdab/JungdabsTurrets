@@ -69,7 +69,8 @@ public final class ClientSmokeTest {
                 phase = 1;
                 client.options.pauseOnLostFocus = false;
                 client.options.renderDistance().set(4);
-                CreateWorldScreen.openFresh(client, client.screen);
+                var previousScreen = client.screen;
+                CreateWorldScreen.openFresh(client, () -> client.setScreen(previousScreen));
                 check(client.screen instanceof CreateWorldScreen, "World creation screen must open");
                 var screen = (CreateWorldScreen) client.screen;
                 var settings = screen.getUiState();
@@ -84,7 +85,7 @@ public final class ClientSmokeTest {
                 var create = screen.children().stream().filter(Button.class::isInstance).map(Button.class::cast)
                         .filter(button -> button.getMessage().getString().equals(Component.translatable("selectWorld.create").getString()))
                         .findFirst().orElseThrow();
-                create.onPress();
+                create.onPress(new net.minecraft.client.input.MouseButtonInfo(0, 0));
             }
             case 1 -> {
                 if (client.level == null || client.player == null || client.screen != null) return;

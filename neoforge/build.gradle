@@ -52,7 +52,10 @@ repositories {
 }
 
 dependencies {
-    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+    implementation "me.jungdab.backport.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+    jarJar("me.jungdab.backport.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}") {
+        version { strictly "[${geckolib_version}]" }
+    }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

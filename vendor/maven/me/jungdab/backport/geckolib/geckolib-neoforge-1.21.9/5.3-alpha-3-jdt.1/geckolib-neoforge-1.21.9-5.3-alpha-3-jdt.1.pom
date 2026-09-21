@@ -1,0 +1,9 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>me.jungdab.backport.geckolib</groupId>
+  <artifactId>geckolib-neoforge-1.21.9</artifactId>
+  <version>5.3-alpha-3-jdt.1</version>
+  <name>GeckoLib unofficial Minecraft 1.21.9 compatibility build</name>
+  <url>https://github.com/bernie-g/geckolib</url>
+  <licenses><license><name>MIT</name><url>https://opensource.org/license/mit</url></license></licenses>
+</project>

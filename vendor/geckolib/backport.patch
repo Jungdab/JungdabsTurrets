@@ -1,0 +1,188 @@
+diff --git a/.gitignore b/.gitignore
+index ec9adb7..dae7801 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -21,6 +21,8 @@ native
+ # gradle
+ build
+ .gradle
++.kotlin/
++*.log
+ logs
+ # other
+ eclipse
+diff --git a/build.gradle.kts b/build.gradle.kts
+index e8c442b..8e10222 100644
+--- a/build.gradle.kts
++++ b/build.gradle.kts
+@@ -4,4 +4,13 @@ plugins {
+ 
+     // Required for NeoGradle
+     alias(libs.plugins.ideaext)
+-}
+\ No newline at end of file
++}
++
++// This compatibility fork only produces local artifacts for Jungdab's Turrets.
++allprojects {
++    tasks.configureEach {
++        if (name.startsWith("publish") || name.startsWith("modrinth")) {
++            enabled = false
++        }
++    }
++}
+diff --git a/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts b/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts
+index 1dc0f68..20b8127 100644
+--- a/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts
++++ b/buildSrc/src/main/kotlin/geckolib-convention.gradle.kts
+@@ -68,6 +68,8 @@ val neoforgeVersionRange = libs.get().findVersion("neoforge.range").get()
+ val neoforgeLoaderVersionRange = libs.get().findVersion("neoforge.loader.range").get()
+ 
+ tasks.withType<Jar>().configureEach {
++    if (name == "remapJar" || name == "remapSourcesJar") return@configureEach
++
+     from(rootProject.file("LICENSE")) {
+         rename { "${it}_${modDisplayName}" }
+     }
+@@ -136,4 +138,4 @@ publishing {
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/common/src/main/resources/META-INF/GECKOLIB-THIRD-PARTY-NOTICES.txt b/common/src/main/resources/META-INF/GECKOLIB-THIRD-PARTY-NOTICES.txt
+new file mode 100644
+index 0000000..fdd5278
+--- /dev/null
++++ b/common/src/main/resources/META-INF/GECKOLIB-THIRD-PARTY-NOTICES.txt
+@@ -0,0 +1,29 @@
++GeckoLib contains the following MIT-licensed contributions.
++The main GeckoLib license is included separately in this JAR.
++
++EasingType.step: Copyright (c) 2015 Boris Chumichev
++Source notice: software/bernie/geckolib/animation/EasingType.java
++
++McLib mathematical expression parser: Copyright (c) 2018 McHorse
++Original design credited to McHorse, Eliot Lash and Hiroku; adapted by Tslat.
++Source: https://github.com/fadookie/particleman/blob/be1ce93c3cbd0f894742e3f41c0c6b23880be046/LICENSE-mclib.md
++
++The MIT License (MIT)
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
++THE SOFTWARE.
+diff --git a/fabric/src/main/resources/fabric.mod.json b/fabric/src/main/resources/fabric.mod.json
+index 11ffb40..f4c3713 100644
+--- a/fabric/src/main/resources/fabric.mod.json
++++ b/fabric/src/main/resources/fabric.mod.json
+@@ -33,12 +33,12 @@
+ 	"depends": {
+    		"fabricloader": ">=${fabric_loader_version_range}",
+ 		"fabric-api": ">=${fabric_api_version_range}",
+-		"java": ">=17",
+-		"minecraft": ">=${minecraft_version}"
++		"java": ">=21",
++		"minecraft": "${minecraft_version}"
+ 	},
+ 	"custom": {
+ 		"modmenu": {
+ 			"badges": [ "library" ]
+ 		}
+ 	}
+-}
+\ No newline at end of file
++}
+diff --git a/gradle.properties b/gradle.properties
+index 8950d92..b32e114 100644
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -4,9 +4,9 @@ org.gradle.daemon=false
+ 
+ # Project Settings
+ modId=geckolib
+-modDisplayName=GeckoLib 5
+-group=software.bernie.geckolib
++modDisplayName=GeckoLib 5 (Jungdab 1.21.9 backport)
++group=me.jungdab.backport.geckolib
+ modLicense=MIT
+ modAuthors=Tslat, Gecko
+ modContributors=Eliot, AzureDoom, DerToaster, Witixin
+-modDescription=GeckoLib is an animation engine for Minecraft Mods, with support for complex 3D keyframe-based animations, 30+ easings, concurrent animation support, sound and particle keyframes, event keyframes, and more.
++modDescription=Unofficial Minecraft 1.21.9 backport of GeckoLib 5, bundled with Jungdab's Turrets. Original animation engine by the GeckoLib contributors; this compatibility build is maintained separately.
+diff --git a/gradle/libs.versions.toml b/gradle/libs.versions.toml
+index 25fb2e1..5c96154 100644
+--- a/gradle/libs.versions.toml
++++ b/gradle/libs.versions.toml
+@@ -1,20 +1,20 @@
+ [versions]
+ # GeckoLib
+-    geckolib = "5.3-alpha-3"
++    geckolib = "5.3-alpha-3-jdt.1"
+ 
+ # Common
+-    minecraft-range = "[1.21.10,)"
+-    minecraft = "1.21.10"
++    minecraft-range = "[1.21.9]"
++    minecraft = "1.21.9"
+     parchment-minecraft = "1.21.9"
+     parchment = "2025.10.05"
+-    neoform = "1.21.10-20251007.142004"
++    neoform = "1.21.9-20250930.151910"
+     jopt-simple = "5.0.4"
+ 
+ # Fabric
+     fabric = "0.17.3"
+     fabric-range = "0.17"
+-    fabric-api = "0.134.1+1.21.10"
+-    fabric-api-range = "0.134.1+1.21.10"
++    fabric-api = "0.134.1+1.21.9"
++    fabric-api-range = "0.134.1+1.21.9"
+ 
+ # Forge
+     forge-fml-range = "[60,)"
+@@ -24,8 +24,8 @@
+ 
+ # Neoforge
+     neoforge-loader-range = "[5,)"
+-    neoforge-range = "[21.10.10-beta,)"
+-    neoforge = "21.10.10-beta"
++    neoforge-range = "[21.9.16-beta,21.10)"
++    neoforge = "21.9.16-beta"
+ 
+ # Dependencies
+     mixin = "0.8.7"
+@@ -42,7 +42,7 @@
+     plugin-forge-gradle = "[6.0.44,6.2)"
+     plugin-mixin = "0.7.+"
+     plugin-parchment-forge-gradle = "1.+"
+-    plugin-loom = "1.11-SNAPSHOT"
++    plugin-loom = "1.11.8"
+ 
+ [libraries]
+ # Mixin
+diff --git a/settings.gradle.kts b/settings.gradle.kts
+index b0a1ade..ed14d20 100644
+--- a/settings.gradle.kts
++++ b/settings.gradle.kts
+@@ -50,5 +50,5 @@ rootProject.name = "geckolib"
+ 
+ include("common")
+ include("fabric")
+-include("forge")
++// Forge is outside the scope of this compatibility build.
+ include("neoforge")
