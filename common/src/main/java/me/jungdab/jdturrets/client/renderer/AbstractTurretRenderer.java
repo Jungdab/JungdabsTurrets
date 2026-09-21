@@ -3,6 +3,7 @@ package me.jungdab.jdturrets.client.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.jungdab.jdturrets.entity.AbstractTurret;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.Mth;
@@ -15,6 +16,19 @@ public class AbstractTurretRenderer<T extends AbstractTurret, R extends LivingEn
         extends GeoEntityRenderer<T, R> {
     protected AbstractTurretRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         super(context, model);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public R createRenderState() {
+        // Inventory previews request a fresh state directly, without GeckoLib's entity-aware factory.
+        return (R) new LivingEntityRenderState();
+    }
+
+    @Override
+    public void render(R state, PoseStack poseStack, MultiBufferSource buffers, int packedLight) {
+        state.addGeckolibData(DataTickets.PACKED_LIGHT, packedLight);
+        super.render(state, poseStack, buffers, packedLight);
     }
 
     @Override
