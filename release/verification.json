@@ -31,10 +31,11 @@
         "sha256": "603D6BD55161C60C2088C24E4B6F667C11148C2AA1D9A26EF2441D1151C70076",
         "build": "passed",
         "runtime": "not tested",
-        "client": "not tested"
+        "client": "not tested",
+        "publication": "excluded by owner: no Forge for Minecraft 1.21+"
       }
     ],
-    "uploaded": "Fabric and NeoForge uploaded to both platforms; Forge awaiting runtime tests"
+    "uploaded": "Fabric and NeoForge uploaded to both platforms; Forge excluded by owner"
   },
   {
     "minecraft": "1.21.4",
@@ -62,7 +63,8 @@
         "sha256": "40351E3FE9F22775B21A8005FEA686E44BAB5E98BEC13DA40B26180B39E1D713",
         "build": "passed",
         "runtime": "not tested",
-        "client": "not tested"
+        "client": "not tested",
+        "publication": "excluded by owner: no Forge for Minecraft 1.21+"
       }
     ],
     "uploaded": false
@@ -96,9 +98,42 @@
         "sha256": "95AD46BC33839BC4C886424DB235FF9CB548F5A9F9CB0CEE09DD6A64E42D1573",
         "build": "passed",
         "runtime": "not tested",
-        "client": "not tested"
+        "client": "not tested",
+        "publication": "excluded by owner: no Forge for Minecraft 1.21+"
       }
     ],
-    "uploaded": "Fabric uploaded to both platforms; other loaders awaiting tests"
+    "uploaded": "Fabric uploaded to both platforms; NeoForge awaiting client tests; Forge excluded by owner"
+  },
+  {
+    "minecraft": "1.21.6",
+    "branch": "codex/minecraft-1.21.6",
+    "artifacts": [
+      {
+        "loader": "forge",
+        "file": "Jungdab's Turrets-forge-1.21.6-1.0.2.jar",
+        "sha256": "CEC82BCCBBEAB2258A95E110EAFA8EC03840ED4E544135C15ED3C7C4F0BD8EE9",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested",
+        "publication": "excluded by owner: no Forge for Minecraft 1.21+"
+      },
+      {
+        "loader": "neoforge",
+        "file": "jdturrets-neoforge-1.21.6-1.0.2.jar",
+        "sha256": "A45C90147E828D2D45FDC3457F987A39040C9E9F0EE330B3DC5540C879867409",
+        "build": "passed",
+        "runtime": "not tested",
+        "client": "not tested"
+      },
+      {
+        "loader": "fabric",
+        "file": "jdturrets-fabric-1.21.6-1.0.2.jar",
+        "sha256": "13643120AA3173744449CC8ED027016A35BDF087F980F9AB37B99384B3C85E24",
+        "build": "passed",
+        "runtime": "4 mod server GameTests plus vanilla always_pass passed",
+        "client": "automated placement, rendering, trace and configuration screens passed; screenshot review caught and verified fix for transparent stat labels"
+      }
+    ],
+    "uploaded": false
   }
 ]

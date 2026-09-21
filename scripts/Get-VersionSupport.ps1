@@ -13,7 +13,7 @@ $targets = @($manifest.versions | Where-Object {
 } | Sort-Object { [version]$_.id })
 
 $rows = foreach ($target in $targets) {
-    foreach ($loader in @('fabric', 'forge', 'neoforge')) {
+    foreach ($loader in @('neoforge', 'fabric')) {
         $candidates = @($geckolib | Where-Object {
             $_.game_versions -contains $target.id -and $_.loaders -contains $loader
         } | Sort-Object date_published -Descending)

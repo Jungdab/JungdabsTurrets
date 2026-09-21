@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-21T06:29:20.6418438+00:00",
+  "checked_at": "2026-09-21T15:10:49.4498767+00:00",
   "modrinth_project": "TYLHPOeu",
   "curseforge_project": 1595544,
   "note": "Dependency listings are candidates only, not proof of binary compatibility. Missing listings require upstream investigation. Never publish an untested game-version label.",
@@ -11,24 +11,6 @@
   "targets": [
     {
       "minecraft": "1.21.1",
-      "loader": "fabric",
-      "already_published": true,
-      "geckolib": "4.9.3",
-      "geckolib_version_id": "tmxM7U4W",
-      "geckolib_release_type": "release",
-      "status": "already-published"
-    },
-    {
-      "minecraft": "1.21.1",
-      "loader": "forge",
-      "already_published": true,
-      "geckolib": "4.9.3",
-      "geckolib_version_id": "nOfQUA8r",
-      "geckolib_release_type": "release",
-      "status": "already-published"
-    },
-    {
-      "minecraft": "1.21.1",
       "loader": "neoforge",
       "already_published": true,
       "geckolib": "4.9.3",
@@ -37,22 +19,13 @@
       "status": "already-published"
     },
     {
-      "minecraft": "1.21.2",
+      "minecraft": "1.21.1",
       "loader": "fabric",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
-    },
-    {
-      "minecraft": "1.21.2",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
+      "already_published": true,
+      "geckolib": "4.9.3",
+      "geckolib_version_id": "tmxM7U4W",
+      "geckolib_release_type": "release",
+      "status": "already-published"
     },
     {
       "minecraft": "1.21.2",
@@ -64,29 +37,38 @@
       "status": "dependency-not-listed"
     },
     {
-      "minecraft": "1.21.3",
+      "minecraft": "1.21.2",
       "loader": "fabric",
       "already_published": false,
+      "geckolib": null,
+      "geckolib_version_id": null,
+      "geckolib_release_type": null,
+      "status": "dependency-not-listed"
+    },
+    {
+      "minecraft": "1.21.3",
+      "loader": "neoforge",
+      "already_published": true,
+      "geckolib": "4.7.3",
+      "geckolib_version_id": "y2zed8ii",
+      "geckolib_release_type": "release",
+      "status": "already-published"
+    },
+    {
+      "minecraft": "1.21.3",
+      "loader": "fabric",
+      "already_published": true,
       "geckolib": "4.7.1",
       "geckolib_version_id": "7fKNdJBM",
       "geckolib_release_type": "release",
-      "status": "port-and-test-required"
+      "status": "already-published"
     },
     {
-      "minecraft": "1.21.3",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "4.7.3",
-      "geckolib_version_id": "2J2BngcR",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.3",
+      "minecraft": "1.21.4",
       "loader": "neoforge",
       "already_published": false,
-      "geckolib": "4.7.3",
-      "geckolib_version_id": "y2zed8ii",
+      "geckolib": "4.8.5",
+      "geckolib_version_id": "eQtABRub",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
@@ -100,47 +82,29 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "1.21.4",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "4.8.5",
-      "geckolib_version_id": "mYxrg67z",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.4",
+      "minecraft": "1.21.5",
       "loader": "neoforge",
       "already_published": false,
-      "geckolib": "4.8.5",
-      "geckolib_version_id": "eQtABRub",
+      "geckolib": "5.1.0",
+      "geckolib_version_id": "GbxHZH7t",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
     {
       "minecraft": "1.21.5",
       "loader": "fabric",
-      "already_published": false,
+      "already_published": true,
       "geckolib": "5.1.0",
       "geckolib_version_id": "AyXpbm2h",
       "geckolib_release_type": "release",
-      "status": "port-and-test-required"
+      "status": "already-published"
     },
     {
-      "minecraft": "1.21.5",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.1.0",
-      "geckolib_version_id": "sh5tZHc0",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.5",
+      "minecraft": "1.21.6",
       "loader": "neoforge",
       "already_published": false,
-      "geckolib": "5.1.0",
-      "geckolib_version_id": "GbxHZH7t",
+      "geckolib": "5.2.0",
+      "geckolib_version_id": "faqm9u5p",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
@@ -154,20 +118,11 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "1.21.6",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.2.0",
-      "geckolib_version_id": "VRokounJ",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.6",
+      "minecraft": "1.21.7",
       "loader": "neoforge",
       "already_published": false,
-      "geckolib": "5.2.0",
-      "geckolib_version_id": "faqm9u5p",
+      "geckolib": "5.2.1",
+      "geckolib_version_id": "U4DFMhQx",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
@@ -181,20 +136,11 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "1.21.7",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.2.1",
-      "geckolib_version_id": "pRox8Wq9",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.7",
+      "minecraft": "1.21.8",
       "loader": "neoforge",
       "already_published": false,
-      "geckolib": "5.2.1",
-      "geckolib_version_id": "U4DFMhQx",
+      "geckolib": "5.2.2",
+      "geckolib_version_id": "KPEgpbCC",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
@@ -208,42 +154,6 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "1.21.8",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.2.2",
-      "geckolib_version_id": "OPISN5mY",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.8",
-      "loader": "neoforge",
-      "already_published": false,
-      "geckolib": "5.2.2",
-      "geckolib_version_id": "KPEgpbCC",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.9",
-      "loader": "fabric",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
-    },
-    {
-      "minecraft": "1.21.9",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
-    },
-    {
       "minecraft": "1.21.9",
       "loader": "neoforge",
       "already_published": false,
@@ -253,22 +163,13 @@
       "status": "dependency-not-listed"
     },
     {
-      "minecraft": "1.21.10",
+      "minecraft": "1.21.9",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": "5.3-alpha-3",
-      "geckolib_version_id": "7qjQQSWv",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.10",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.3-alpha-3",
-      "geckolib_version_id": "eN3dbGqR",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
+      "geckolib": null,
+      "geckolib_version_id": null,
+      "geckolib_release_type": null,
+      "status": "dependency-not-listed"
     },
     {
       "minecraft": "1.21.10",
@@ -280,20 +181,11 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "1.21.11",
+      "minecraft": "1.21.10",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": "5.4.5",
-      "geckolib_version_id": "G1BvHQDL",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "1.21.11",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.4.5",
-      "geckolib_version_id": "Mkh4Yn87",
+      "geckolib": "5.3-alpha-3",
+      "geckolib_version_id": "7qjQQSWv",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
@@ -307,22 +199,13 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "26.1",
+      "minecraft": "1.21.11",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": "5.5",
-      "geckolib_version_id": "yUpAp23B",
+      "geckolib": "5.4.5",
+      "geckolib_version_id": "G1BvHQDL",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "26.1",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
     },
     {
       "minecraft": "26.1",
@@ -334,22 +217,13 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "26.1.1",
+      "minecraft": "26.1",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
-    },
-    {
-      "minecraft": "26.1.1",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
+      "geckolib": "5.5",
+      "geckolib_version_id": "yUpAp23B",
+      "geckolib_release_type": "release",
+      "status": "port-and-test-required"
     },
     {
       "minecraft": "26.1.1",
@@ -361,22 +235,13 @@
       "status": "dependency-not-listed"
     },
     {
-      "minecraft": "26.1.2",
+      "minecraft": "26.1.1",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": "5.5.2",
-      "geckolib_version_id": "XZTmZlwb",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "26.1.2",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.5.2",
-      "geckolib_version_id": "koLjgWA3",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
+      "geckolib": null,
+      "geckolib_version_id": null,
+      "geckolib_release_type": null,
+      "status": "dependency-not-listed"
     },
     {
       "minecraft": "26.1.2",
@@ -388,20 +253,11 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "26.2",
+      "minecraft": "26.1.2",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": "5.5.5",
-      "geckolib_version_id": "7gaQHok7",
-      "geckolib_release_type": "release",
-      "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "26.2",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": "5.5.6",
-      "geckolib_version_id": "Xwim7a3L",
+      "geckolib": "5.5.2",
+      "geckolib_version_id": "XZTmZlwb",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     },
@@ -415,22 +271,13 @@
       "status": "port-and-test-required"
     },
     {
-      "minecraft": "26.3",
+      "minecraft": "26.2",
       "loader": "fabric",
       "already_published": false,
-      "geckolib": "5.5.6",
-      "geckolib_version_id": "1VWnZPbQ",
+      "geckolib": "5.5.5",
+      "geckolib_version_id": "7gaQHok7",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
-    },
-    {
-      "minecraft": "26.3",
-      "loader": "forge",
-      "already_published": false,
-      "geckolib": null,
-      "geckolib_version_id": null,
-      "geckolib_release_type": null,
-      "status": "dependency-not-listed"
     },
     {
       "minecraft": "26.3",
@@ -438,6 +285,15 @@
       "already_published": false,
       "geckolib": "5.5.6",
       "geckolib_version_id": "uGEFXLKA",
+      "geckolib_release_type": "release",
+      "status": "port-and-test-required"
+    },
+    {
+      "minecraft": "26.3",
+      "loader": "fabric",
+      "already_published": false,
+      "geckolib": "5.5.6",
+      "geckolib_version_id": "1VWnZPbQ",
       "geckolib_release_type": "release",
       "status": "port-and-test-required"
     }

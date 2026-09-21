@@ -6,13 +6,17 @@ Existing projects: [Modrinth](https://modrinth.com/mod/jungdabs-turrets) (`TYLHP
 Requested targets: every stable Java release from 1.21.1 through 1.21.11 and 26.1 through 26.3,
 including 26.1.1 and 26.1.2. Preserve existing 1.20.1 and 1.21.1 publications.
 
+Per the owner's updated scope, create no Forge builds for Minecraft 1.21 or newer. All pending releases target NeoForge and Fabric only. Earlier Forge build records are historical and are excluded from the release queue.
+
 ## Branches
+
+- `codex/minecraft-1.21.2`: Fabric and NeoForge dependency backport in progress; no official Forge loader.
 
 - `codex/minecraft-multiversion`: support audit and release tracking, based on local `master` at `c57080a`.
 - `codex/minecraft-1.21.3`: three loader builds; Fabric server tests and user gameplay passed.
 - `codex/minecraft-1.21.4`: three loader builds and Fabric server tests passed; client verification pending.
 - `codex/minecraft-1.21.5`: GeckoLib 5 port; three loader builds, Fabric server and client tests passed.
-- `codex/minecraft-1.21.6`: port in progress.
+- `codex/minecraft-1.21.6`: three loader builds and Fabric server/client tests passed.
 
 ## Verification and publication
 
@@ -31,7 +35,7 @@ Before uploading a new version:
 4. Test multiplayer configuration changes and world save/reload.
 5. Record artifact hashes and test results, then add files to the existing hosting projects.
 
-For all future uploads, follow the user's requested order on both platforms: ascending Minecraft version, then **Forge → NeoForge → Fabric** within each version. A pending test or fix in an earlier file holds later uploads. Explicitly document unavailable upstream loader/dependency combinations. Preserve files already published before this ordering instruction.
+For all future uploads, follow the user's requested order on both platforms: ascending Minecraft version, then **NeoForge → Fabric** within each version. Forge is excluded by the updated scope. A pending test or fix in an earlier file holds later uploads. Explicitly document unavailable upstream loader/dependency combinations. Preserve files already published before this ordering instruction.
 
 The first 1.21.5 manual test found a missing GeckoLib model on placement. Fixed by moving models and animations to GeckoLib 5 resource directories. Added `:fabric:runClientGameTest` to check baked models and animations, place all three turret items, render bullet traces and open every turret configuration screen. All checks now pass, with screenshots saved in `fabric/build/client-gametest/screenshots`.
 
