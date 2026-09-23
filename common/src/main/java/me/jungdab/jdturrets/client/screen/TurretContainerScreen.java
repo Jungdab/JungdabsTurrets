@@ -14,13 +14,15 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -111,8 +113,8 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
     }
 
     @Override
-    public void extractBackground(GuiGraphicsExtractor graphics, int i, int i1, float v) {
-        super.extractBackground(graphics, i, i1, v);
+    public void extractBackground(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
+        super.extractBackground(graphics, mouseX, mouseY, partialTick);
         graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
 
         int type = this.menu.getTurretType();
@@ -120,13 +122,40 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
 
         if(DUMMY_TURRETS.containsKey(type)) {
             AbstractTurret dummyTurret = DUMMY_TURRETS.get(type);
-            InventoryScreen.extractEntityInInventoryFollowsMouse(graphics, leftPos+63, topPos+18, leftPos + 115, topPos + 70, 30, 0.2F, this.xMouse, this.yMouse, dummyTurret);
+            extractAnimatedPreview(graphics, dummyTurret, partialTick);
         } else {
             AbstractTurret dummyTurret = getDummyTurret(type, this.minecraft);
             if(dummyTurret != null) {
                 DUMMY_TURRETS.put(type, dummyTurret);
             }
         }
+    }
+
+    private void extractAnimatedPreview(GuiGraphicsExtractor graphics, AbstractTurret turret, float partialTick) {
+        int x0 = this.leftPos + 63;
+        int y0 = this.topPos + 18;
+        int x1 = this.leftPos + 115;
+        int y1 = this.topPos + 70;
+        float xAngle = (float) Math.atan(((x0 + x1) / 2.0F - this.xMouse) / 40.0F);
+        float yAngle = (float) Math.atan(((y0 + y1) / 2.0F - this.yMouse) / 40.0F);
+        Quaternionf xRotation = new Quaternionf().rotateX(yAngle * 20.0F * ((float) Math.PI / 180.0F));
+        Quaternionf rotation = new Quaternionf().rotateZ((float) Math.PI).mul(xRotation);
+
+        // The vanilla inventory helper forces partialTick=1, which pauses GeckoLib 5.5.2 animations.
+        var renderer = this.minecraft.getEntityRenderDispatcher().getRenderer(turret);
+        var renderState = renderer.createRenderState(turret, partialTick);
+        renderState.shadowPieces.clear();
+        renderState.outlineColor = 0;
+        if (renderState instanceof LivingEntityRenderState livingState) {
+            livingState.bodyRot = 180.0F + xAngle * 20.0F;
+            livingState.yRot = xAngle * 20.0F;
+            livingState.xRot = -yAngle * 20.0F;
+            livingState.boundingBoxWidth /= livingState.scale;
+            livingState.boundingBoxHeight /= livingState.scale;
+            livingState.scale = 1.0F;
+        }
+        Vector3f translation = new Vector3f(0.0F, renderState.boundingBoxHeight / 2.0F + 0.2F, 0.0F);
+        graphics.entity(renderState, 30, translation, rotation, xRotation, x0, y0, x1, y1);
     }
 
     @Override

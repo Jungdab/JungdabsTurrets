@@ -1,6 +1,6 @@
 ![Logo](https://cdn.modrinth.com/data/cached_images/85b1a9c7c9925725864cf1b2f4df099e4dbd4bb2.png)
 
-**Minecraft 26.1.1: requires Java 25 and GeckoLib 5.5 for Minecraft 26.1. NeoForge and Fabric are supported.**
+**Minecraft 26.1.2: requires Java 25 and GeckoLib 5.5.2 for Minecraft 26.1.2. NeoForge and Fabric are supported.**
 
 
 This is a simple mod that adds various turrets to the game.
