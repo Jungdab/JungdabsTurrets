@@ -26,7 +26,7 @@ public class FabricJdTurrets implements ModInitializer {
     }
 
     private void initPayloads() {
-        PayloadTypeRegistry.playC2S().register(
+        PayloadTypeRegistry.serverboundPlay().register(
                 C2STurretConfigPacket.TYPE,
                 C2STurretConfigPacket.STREAM_CODEC
         );

@@ -7,7 +7,7 @@ import me.jungdab.jdturrets.init.ModEntities;
 import me.jungdab.jdturrets.network.C2STurretConfigPacket;
 import me.jungdab.jdturrets.platform.Services;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -43,10 +43,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
     private Component ownerLabel;
 
     public TurretContainerScreen(TurretContainerMenu menu, Inventory playerInventory, Component title) {
-        super(menu, playerInventory, title);
-
-        this.imageWidth = 231;
-        this.imageHeight = 187;
+        super(menu, playerInventory, title, 231, 187);
 
         this.titleLabelX = 63;
         this.inventoryLabelX = 63;
@@ -106,15 +103,16 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
     }
 
     @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+    public void extractRenderState(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick) {
         this.xMouse = (float)mouseX;
         this.yMouse = (float)mouseY;
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-        this.renderTooltip(guiGraphics, mouseX, mouseY);
+        super.extractRenderState(guiGraphics, mouseX, mouseY, partialTick);
+        this.extractTooltip(guiGraphics, mouseX, mouseY);
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float v, int i, int i1) {
+    public void extractBackground(GuiGraphicsExtractor graphics, int i, int i1, float v) {
+        super.extractBackground(graphics, i, i1, v);
         graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
 
         int type = this.menu.getTurretType();
@@ -122,7 +120,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
 
         if(DUMMY_TURRETS.containsKey(type)) {
             AbstractTurret dummyTurret = DUMMY_TURRETS.get(type);
-            InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, leftPos+63, topPos+18, leftPos + 115, topPos + 70, 30, 0.2F, this.xMouse, this.yMouse, dummyTurret);
+            InventoryScreen.extractEntityInInventoryFollowsMouse(graphics, leftPos+63, topPos+18, leftPos + 115, topPos + 70, 30, 0.2F, this.xMouse, this.yMouse, dummyTurret);
         } else {
             AbstractTurret dummyTurret = getDummyTurret(type, this.minecraft);
             if(dummyTurret != null) {
@@ -132,13 +130,13 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
     }
 
     @Override
-    protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
-        super.renderLabels(guiGraphics, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY) {
+        super.extractLabels(guiGraphics, mouseX, mouseY);
 
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(0)) + "/" + String.format("%.1f", menu.getData(1)), 157, 23, 0xFF404040, false);
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(2)), 157, 35, 0xFF404040, false);
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(3)), 157, 47, 0xFF404040, false);
-        guiGraphics.drawString(this.font, String.format("%.1f", menu.getData(4)), 157, 58, 0xFF404040, false);
+        guiGraphics.text(this.font, String.format("%.1f", menu.getData(0)) + "/" + String.format("%.1f", menu.getData(1)), 157, 23, 0xFF404040, false);
+        guiGraphics.text(this.font, String.format("%.1f", menu.getData(2)), 157, 35, 0xFF404040, false);
+        guiGraphics.text(this.font, String.format("%.1f", menu.getData(3)), 157, 47, 0xFF404040, false);
+        guiGraphics.text(this.font, String.format("%.1f", menu.getData(4)), 157, 58, 0xFF404040, false);
 
         if(this.ownerLabel == null) {
             int id = this.menu.getTurretId();
@@ -151,7 +149,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         }
         else {
             int w = this.font.width(this.ownerLabel);
-            guiGraphics.drawString(this.font, this.ownerLabel, this.imageWidth-w-8, this.titleLabelY, 0xFF404040, false);
+            guiGraphics.text(this.font, this.ownerLabel, this.imageWidth-w-8, this.titleLabelY, 0xFF404040, false);
         }
     }
 
@@ -189,7 +187,7 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         }
 
         @Override
-        protected void renderWidget(GuiGraphics guiGraphics, int i, int i1, float v) {
+        protected void extractWidgetRenderState(GuiGraphicsExtractor guiGraphics, int i, int i1, float v) {
             float u = isHovered ? 32 : 0;
             u += isChecked ? 0 : 16;
 

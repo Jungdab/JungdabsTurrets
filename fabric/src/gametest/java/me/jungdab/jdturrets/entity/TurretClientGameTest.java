@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
-import software.bernie.geckolib.cache.GeckoLibResources;
+import com.geckolib.cache.GeckoLibResources;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class TurretClientGameTest implements FabricClientGameTest {
         try (var world = context.worldBuilder().create()) {
             world.getServer().runCommand("gamemode creative @p");
             world.getServer().runCommand("tp @p 0 -60 0 0 10");
-            world.getClientWorld().waitForChunksRender();
+            world.getClientLevel().waitForChunksRender();
             world.getServer().runOnServer(server -> {
                 var player = server.getPlayerList().getPlayers().getFirst();
                 var items = List.of(ModItems.BASIC_TURRET_ITEM.get(), ModItems.SNIPER_TURRET_ITEM.get(), ModItems.TANK_TURRET_ITEM.get());

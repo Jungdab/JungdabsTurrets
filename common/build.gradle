@@ -10,10 +10,6 @@ neoForge {
     if (at.exists()) {
         accessTransformers.from(at.absolutePath)
     }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
 }
 
 repositories {
@@ -21,18 +17,17 @@ repositories {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
         content {
-            includeGroup("software.bernie.geckolib")
+            includeGroup("com.geckolib")
         }
     }
 }
 
 dependencies {
-    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.7'
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
-    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
-    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
+    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.5.3'
 
-    implementation "software.bernie.geckolib:geckolib-common-${minecraft_version}:${geckolib_version}"
+    implementation "com.geckolib:geckolib-common-${geckolib_minecraft_version}:${geckolib_version}"
 }
 
 configurations {

@@ -41,14 +41,24 @@ import java.util.concurrent.CompletableFuture;
 public final class ClientSmokeTest {
     private static int phase, ticks, resumeAt, menuIndex;
     private static long started;
+    private static long startedEpoch;
     private static CompletableFuture<Void> serverTask;
+    private static CompletableFuture<Void> screenshotTask;
     private static final List<Integer> turretIds = new ArrayList<>();
 
     public static void tick(Minecraft client) {
         if (!Boolean.getBoolean("jdturrets.clientSmokeTest") || phase == 99) return;
-        if (started == 0) started = System.nanoTime();
+        if (started == 0) {
+            started = System.nanoTime();
+            startedEpoch = System.currentTimeMillis();
+        }
         check(System.nanoTime() - started < 300_000_000_000L, "Client smoke test timed out at phase " + phase);
         if (++ticks < resumeAt || client.getOverlay() != null) return;
+        if (screenshotTask != null) {
+            if (!screenshotTask.isDone()) return;
+            screenshotTask.join();
+            screenshotTask = null;
+        }
         if (serverTask != null) {
             if (!serverTask.isDone()) return;
             serverTask.join();
@@ -106,7 +116,12 @@ public final class ClientSmokeTest {
             }
             case 5 -> {
                 check(client.screen instanceof TurretContainerScreen, "Turret configuration screen must open");
+                check(client.player.containerMenu.getSlot(0).getItem().is(ModItems.IRON_DAMAGE_CHIP.get()), "Client menu must receive the installed chip");
+                check(client.player.containerMenu.getSlot(3).getItem().is(ModItems.TURRET_AMMO.get()), "Client menu must receive turret ammunition");
                 screenshot(client, "menu-" + menuIndex);
+                advance(7, 1);
+            }
+            case 7 -> {
                 client.player.closeContainer();
                 menuIndex++;
                 advance(menuIndex < 3 ? 4 : 6, 20);
@@ -114,7 +129,8 @@ public final class ClientSmokeTest {
             case 6 -> {
                 try {
                     for (String name : List.of("world", "menu-0", "menu-1", "menu-2")) {
-                        check(Files.isRegularFile(client.gameDirectory.toPath().resolve("screenshots/smoke-" + name + ".png")), "Screenshot missing: " + name);
+                        var path = client.gameDirectory.toPath().resolve("screenshots/smoke-" + name + ".png");
+                        check(Files.isRegularFile(path) && Files.getLastModifiedTime(path).toMillis() >= startedEpoch, "Fresh screenshot missing: " + name);
                     }
                     Files.writeString(client.gameDirectory.toPath().resolve("smoke-result.txt"),
                             "PASS: three turret placements, client rendering, trace, all configuration screens, C2S settings packets, recipes, damage, ammunition and NBT save/load\n");
@@ -173,7 +189,9 @@ public final class ClientSmokeTest {
     }
 
     private static void screenshot(Minecraft client, String name) {
-        Screenshot.grab(client.gameDirectory, "smoke-" + name + ".png", client.getMainRenderTarget(), 1, message -> {});
+        screenshotTask = new CompletableFuture<>();
+        var completed = screenshotTask;
+        Screenshot.grab(client.gameDirectory, "smoke-" + name + ".png", client.getMainRenderTarget(), 1, message -> completed.complete(null));
     }
 
     private static Container inventory(AbstractTurret turret, MinecraftServer server) {
