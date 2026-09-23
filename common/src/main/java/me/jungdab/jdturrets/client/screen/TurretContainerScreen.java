@@ -188,12 +188,15 @@ public class TurretContainerScreen extends AbstractContainerScreen<TurretContain
         ClientLevel level = mc.level;
         if(level == null) return null;
 
-        return switch (type) {
+        AbstractTurret preview = switch (type) {
             case 1 -> ModEntities.BASIC_TURRET.get().create(level, EntitySpawnReason.LOAD);
             case 2 -> ModEntities.SNIPER_TURRET.get().create(level, EntitySpawnReason.LOAD);
             case 3 -> ModEntities.TANK_TURRET.get().create(level, EntitySpawnReason.LOAD);
             default -> null;
         };
+        // Client-only previews are never spawned, so 26.2 does not assign them a network ID.
+        if (preview != null) preview.setId(-type);
+        return preview;
     }
 
     private static class CheckBox extends AbstractWidget {

@@ -616,7 +616,7 @@
 			"bones": {
 				"bone": {
 					"rotation": {
-						"vector": ["easeOutExpo", "easeOutExpo", "easeOutExpo"]
+						"vector": [0, 0, 0]
 					},
 					"position": {
 						"vector": [0, 0, 0]

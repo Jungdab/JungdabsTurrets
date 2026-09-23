@@ -24,7 +24,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -54,7 +54,7 @@ public final class ClientSmokeTest {
             startedEpoch = System.currentTimeMillis();
         }
         check(System.nanoTime() - started < 300_000_000_000L, "Client smoke test timed out at phase " + phase);
-        if (++ticks < resumeAt || client.getOverlay() != null) return;
+        if (++ticks < resumeAt || client.gui.overlay() != null) return;
         if (screenshotTask != null) {
             if (!screenshotTask.isDone()) return;
             screenshotTask.join();
@@ -67,13 +67,20 @@ public final class ClientSmokeTest {
         }
         switch (phase) {
             case 0 -> {
+                for (String name : List.of("basic_turret", "sniper_turret", "tank_turret")) {
+                    var id = net.minecraft.resources.Identifier.fromNamespaceAndPath("jdturrets", "entity/" + name);
+                    for (String animation : List.of("place", "idle", "shoot", "destroy")) {
+                        check(com.geckolib.cache.GeckoLibResources.getBakedAnimations().getAnimation(id, new net.minecraft.resources.Identifier[0], animation) != null,
+                                "Missing animation " + animation + " for " + id);
+                    }
+                }
                 phase = 1;
                 client.options.pauseOnLostFocus = false;
                 client.options.renderDistance().set(4);
-                var previousScreen = client.screen;
-                CreateWorldScreen.openFresh(client, () -> client.setScreen(previousScreen));
-                check(client.screen instanceof CreateWorldScreen, "World creation screen must open");
-                var screen = (CreateWorldScreen) client.screen;
+                var previousScreen = client.gui.screen();
+                CreateWorldScreen.openFresh(client, () -> client.gui.setScreen(previousScreen));
+                check(client.gui.screen() instanceof CreateWorldScreen, "World creation screen must open");
+                var screen = (CreateWorldScreen) client.gui.screen();
                 var settings = screen.getUiState();
                 var flat = settings.getSettings().worldgenLoadContext().lookupOrThrow(Registries.WORLD_PRESET).getOrThrow(WorldPresets.FLAT);
                 settings.setWorldType(new WorldCreationUiState.WorldTypeEntry(flat));
@@ -89,7 +96,7 @@ public final class ClientSmokeTest {
                 create.onPress(new net.minecraft.client.input.MouseButtonInfo(0, 0));
             }
             case 1 -> {
-                if (client.level == null || client.player == null || client.screen != null) return;
+                if (client.level == null || client.player == null || client.gui.screen() != null) return;
                 serverTask = client.getSingleplayerServer().submit(() -> placeTurrets(client.getSingleplayerServer()));
                 advance(2, 80);
             }
@@ -116,7 +123,7 @@ public final class ClientSmokeTest {
                 advance(8, 10);
             }
             case 8 -> {
-                if (!(client.screen instanceof TurretContainerScreen)) return;
+                if (!(client.gui.screen() instanceof TurretContainerScreen)) return;
                 earlyPreviewTime = previewAnimationTime(client);
                 check(earlyPreviewTime > 0 && earlyPreviewTime < 1, "Preview must start animating, including when reopened");
                 screenshot(client, "menu-" + menuIndex + "-early");
@@ -128,7 +135,7 @@ public final class ClientSmokeTest {
                 advance(5, 40);
             }
             case 5 -> {
-                check(client.screen instanceof TurretContainerScreen, "Turret configuration screen must open");
+                check(client.gui.screen() instanceof TurretContainerScreen, "Turret configuration screen must open");
                 check(client.player.containerMenu.getSlot(0).getItem().is(ModItems.IRON_DAMAGE_CHIP.get()), "Client menu must receive the installed chip");
                 check(client.player.containerMenu.getSlot(3).getItem().is(ModItems.TURRET_AMMO.get()), "Client menu must receive turret ammunition");
                 check(previewAnimationTime(client) >= 1.45, "Preview must finish unfolding");
@@ -181,7 +188,7 @@ public final class ClientSmokeTest {
         check(server.getRecipeManager().getRecipes().stream().filter(recipe -> recipe.id().identifier().getNamespace().equals("jdturrets")).count() == 24,
                 "All 24 mod recipes must load");
         var shotTurret = ModEntities.BASIC_TURRET.get().create(server.overworld(), EntitySpawnReason.COMMAND);
-        var cow = EntityType.COW.create(server.overworld(), EntitySpawnReason.COMMAND);
+        var cow = EntityTypes.COW.create(server.overworld(), EntitySpawnReason.COMMAND);
         float health = cow.getHealth();
         shotTurret.shootTo(cow);
         check(cow.getHealth() < health, "Turret shot must damage target");
@@ -205,7 +212,7 @@ public final class ClientSmokeTest {
     private static void screenshot(Minecraft client, String name) {
         screenshotTask = new CompletableFuture<>();
         var completed = screenshotTask;
-        Screenshot.grab(client.gameDirectory, "smoke-" + name + ".png", client.getMainRenderTarget(), 1, message -> completed.complete(null));
+        Screenshot.grab(client.gameDirectory, "smoke-" + name + ".png", client.gameRenderer.mainRenderTarget(), 1, message -> completed.complete(null));
     }
 
     private static double previewAnimationTime(Minecraft client) {
@@ -213,7 +220,7 @@ public final class ClientSmokeTest {
             var field = TurretContainerScreen.class.getDeclaredField("DUMMY_TURRETS");
             field.setAccessible(true);
             var previews = (java.util.Map<?, ?>) field.get(null);
-            var screen = (TurretContainerScreen) client.screen;
+            var screen = (TurretContainerScreen) client.gui.screen();
             var preview = (AbstractTurret) previews.get(screen.getMenu().getTurretType());
             check(preview != null, "Preview entity must exist");
             var controller = preview.getAnimatableInstanceCache().getManagerForId(preview.getId()).getAnimationControllers().get("Turret");

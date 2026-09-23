@@ -48,7 +48,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_version}"
+    implementation "com.geckolib:geckolib-neoforge-${geckolib_minecraft_version}:${geckolib_neoforge_version}"
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }

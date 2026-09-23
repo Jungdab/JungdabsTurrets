@@ -30,12 +30,17 @@ public class TurretClientGameTest implements FabricClientGameTest {
                 if (!GeckoLibResources.getBakedAnimations().cache().containsKey(id)) {
                     throw new AssertionError("Missing baked turret animations: " + id);
                 }
+                for (String animation : List.of("place", "idle", "shoot", "destroy")) {
+                    if (GeckoLibResources.getBakedAnimations().getAnimation(id, new Identifier[0], animation) == null) {
+                        throw new AssertionError("Missing animation " + animation + " for " + id);
+                    }
+                }
             }
         });
         try (var world = context.worldBuilder().create()) {
             world.getServer().runCommand("gamemode creative @p");
             world.getServer().runCommand("tp @p 0 -60 0 0 10");
-            world.getClientLevel().waitForChunksRender();
+            world.getConnection().waitForChunksRender();
             world.getServer().runOnServer(server -> {
                 var player = server.getPlayerList().getPlayers().getFirst();
                 var items = List.of(ModItems.BASIC_TURRET_ITEM.get(), ModItems.SNIPER_TURRET_ITEM.get(), ModItems.TANK_TURRET_ITEM.get());
@@ -91,7 +96,7 @@ public class TurretClientGameTest implements FabricClientGameTest {
             var field = TurretContainerScreen.class.getDeclaredField("DUMMY_TURRETS");
             field.setAccessible(true);
             var previews = (java.util.Map<?, ?>) field.get(null);
-            var screen = (TurretContainerScreen) client.screen;
+            var screen = (TurretContainerScreen) client.gui.screen();
             var preview = (AbstractTurret) previews.get(screen.getMenu().getTurretType());
             if (preview == null) throw new AssertionError("Missing preview entity");
             var controller = preview.getAnimatableInstanceCache().getManagerForId(preview.getId()).getAnimationControllers().get("Turret");

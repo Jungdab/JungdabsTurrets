@@ -9,6 +9,7 @@ import net.minecraft.world.level.storage.TagValueInput;
 import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.util.ProblemReporter;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
@@ -65,7 +66,7 @@ public class TurretGameTests {
     @GameTest
     public void shotDamagesTargetAndAmmoCanBeConsumed(GameTestHelper helper) {
         var turret = ModEntities.BASIC_TURRET.get().create(helper.getLevel(), EntitySpawnReason.COMMAND);
-        var target = EntityType.COW.create(helper.getLevel(), EntitySpawnReason.COMMAND);
+        var target = EntityTypes.COW.create(helper.getLevel(), EntitySpawnReason.COMMAND);
         assertTrue(helper, turret != null && target != null, "Entities must be constructible");
         float health = target.getHealth();
         turret.shootTo(target);
