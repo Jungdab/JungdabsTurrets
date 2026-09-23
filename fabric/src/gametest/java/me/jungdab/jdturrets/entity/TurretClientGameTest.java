@@ -57,8 +57,8 @@ public class TurretClientGameTest implements FabricClientGameTest {
             });
             context.waitTicks(2);
             context.takeScreenshot("three-turrets-and-trace");
-            for (int index = 0; index < 3; index++) {
-                int turretIndex = index;
+            for (int index = 0; index < 6; index++) {
+                int turretIndex = index % 3;
                 world.getServer().runOnServer(server -> {
                     var player = server.getPlayerList().getPlayers().getFirst();
                     var turrets = server.overworld().getEntitiesOfClass(AbstractTurret.class, player.getBoundingBox().inflate(12));
@@ -66,11 +66,40 @@ public class TurretClientGameTest implements FabricClientGameTest {
                     player.openMenu(turrets.get(turretIndex));
                 });
                 context.waitForScreen(TurretContainerScreen.class);
+                context.waitTicks(10);
+                double[] animationTimes = new double[2];
+                context.runOnClient(client -> animationTimes[0] = previewAnimationTime(client));
+                if (animationTimes[0] <= 0 || animationTimes[0] >= 1) throw new AssertionError("Preview did not start animating: " + animationTimes[0]);
+                context.takeScreenshot("turret-menu-" + index + "-early");
+                context.waitTicks(15);
+                context.runOnClient(client -> animationTimes[1] = previewAnimationTime(client));
+                if (animationTimes[1] <= animationTimes[0] + 0.25) throw new AssertionError("Preview animation stopped advancing");
+                context.takeScreenshot("turret-menu-" + index + "-middle");
                 context.waitTicks(40);
+                context.runOnClient(client -> {
+                    if (previewAnimationTime(client) < 1.45) throw new AssertionError("Preview did not finish unfolding");
+                });
                 context.takeScreenshot("turret-menu-" + index);
                 context.runOnClient(client -> client.player.closeContainer());
                 context.waitTick();
             }
+        }
+    }
+
+    private static double previewAnimationTime(net.minecraft.client.Minecraft client) {
+        try {
+            var field = TurretContainerScreen.class.getDeclaredField("DUMMY_TURRETS");
+            field.setAccessible(true);
+            var previews = (java.util.Map<?, ?>) field.get(null);
+            var screen = (TurretContainerScreen) client.screen;
+            var preview = (AbstractTurret) previews.get(screen.getMenu().getTurretType());
+            if (preview == null) throw new AssertionError("Missing preview entity");
+            var controller = preview.getAnimatableInstanceCache().getManagerForId(preview.getId()).getAnimationControllers().get("Turret");
+            double time = controller.getCurrentAnimationTime();
+            System.out.println("PREVIEW ticks=" + preview.tickCount + " animationTime=" + time);
+            return time;
+        } catch (ReflectiveOperationException exception) {
+            throw new AssertionError("Cannot inspect preview", exception);
         }
     }
 }
