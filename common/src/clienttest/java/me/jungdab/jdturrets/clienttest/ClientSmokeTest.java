@@ -42,6 +42,7 @@ public final class ClientSmokeTest {
     private static int phase, ticks, resumeAt, menuIndex;
     private static long started;
     private static long startedEpoch;
+    private static double earlyPreviewTime;
     private static CompletableFuture<Void> serverTask;
     private static CompletableFuture<Void> screenshotTask;
     private static final List<Integer> turretIds = new ArrayList<>();
@@ -109,31 +110,44 @@ public final class ClientSmokeTest {
             case 4 -> {
                 serverTask = client.getSingleplayerServer().submit(() -> {
                     var server = client.getSingleplayerServer();
-                    var turret = (AbstractTurret) server.overworld().getEntity(turretIds.get(menuIndex));
+                    var turret = (AbstractTurret) server.overworld().getEntity(turretIds.get(menuIndex % 3));
                     server.getPlayerList().getPlayers().getFirst().openMenu(turret);
                 });
-                advance(5, 60);
+                advance(8, 10);
+            }
+            case 8 -> {
+                if (!(client.screen instanceof TurretContainerScreen)) return;
+                earlyPreviewTime = previewAnimationTime(client);
+                check(earlyPreviewTime > 0 && earlyPreviewTime < 1, "Preview must start animating, including when reopened");
+                screenshot(client, "menu-" + menuIndex + "-early");
+                advance(9, 15);
+            }
+            case 9 -> {
+                check(previewAnimationTime(client) > earlyPreviewTime + 0.25, "Preview animation must advance between rendered frames");
+                screenshot(client, "menu-" + menuIndex + "-middle");
+                advance(5, 40);
             }
             case 5 -> {
                 check(client.screen instanceof TurretContainerScreen, "Turret configuration screen must open");
                 check(client.player.containerMenu.getSlot(0).getItem().is(ModItems.IRON_DAMAGE_CHIP.get()), "Client menu must receive the installed chip");
                 check(client.player.containerMenu.getSlot(3).getItem().is(ModItems.TURRET_AMMO.get()), "Client menu must receive turret ammunition");
+                check(previewAnimationTime(client) >= 1.45, "Preview must finish unfolding");
                 screenshot(client, "menu-" + menuIndex);
                 advance(7, 1);
             }
             case 7 -> {
                 client.player.closeContainer();
                 menuIndex++;
-                advance(menuIndex < 3 ? 4 : 6, 20);
+                advance(menuIndex < 6 ? 4 : 6, 20);
             }
             case 6 -> {
                 try {
-                    for (String name : List.of("world", "menu-0", "menu-1", "menu-2")) {
+                    for (String name : List.of("world", "menu-0", "menu-1", "menu-2", "menu-3", "menu-4", "menu-5")) {
                         var path = client.gameDirectory.toPath().resolve("screenshots/smoke-" + name + ".png");
                         check(Files.isRegularFile(path) && Files.getLastModifiedTime(path).toMillis() >= startedEpoch, "Fresh screenshot missing: " + name);
                     }
                     Files.writeString(client.gameDirectory.toPath().resolve("smoke-result.txt"),
-                            "PASS: three turret placements, client rendering, trace, all configuration screens, C2S settings packets, recipes, damage, ammunition and NBT save/load\n");
+                            "PASS: three turret placements, client rendering, trace, all configuration screens, advancing preview animations on first open and reopen, C2S settings packets, recipes, damage, ammunition and NBT save/load\n");
                 } catch (java.io.IOException exception) {
                     throw new AssertionError("Could not record smoke test results", exception);
                 }
@@ -192,6 +206,23 @@ public final class ClientSmokeTest {
         screenshotTask = new CompletableFuture<>();
         var completed = screenshotTask;
         Screenshot.grab(client.gameDirectory, "smoke-" + name + ".png", client.getMainRenderTarget(), 1, message -> completed.complete(null));
+    }
+
+    private static double previewAnimationTime(Minecraft client) {
+        try {
+            var field = TurretContainerScreen.class.getDeclaredField("DUMMY_TURRETS");
+            field.setAccessible(true);
+            var previews = (java.util.Map<?, ?>) field.get(null);
+            var screen = (TurretContainerScreen) client.screen;
+            var preview = (AbstractTurret) previews.get(screen.getMenu().getTurretType());
+            check(preview != null, "Preview entity must exist");
+            var controller = preview.getAnimatableInstanceCache().getManagerForId(preview.getId()).getAnimationControllers().get("Turret");
+            double time = controller.getCurrentAnimationTime();
+            System.out.println("PREVIEW " + menuIndex + " ticks=" + preview.tickCount + " animationTime=" + time);
+            return time;
+        } catch (ReflectiveOperationException exception) {
+            throw new AssertionError("Cannot inspect preview", exception);
+        }
     }
 
     private static Container inventory(AbstractTurret turret, MinecraftServer server) {
